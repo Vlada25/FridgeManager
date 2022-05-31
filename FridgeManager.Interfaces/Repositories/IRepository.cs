@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FridgeManager.Interfaces.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T>
     {
         IQueryable<T> GetAll(bool trackChanges);
         IQueryable<T> GetByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
