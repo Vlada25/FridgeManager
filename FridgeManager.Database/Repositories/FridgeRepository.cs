@@ -1,6 +1,7 @@
 ﻿using FridgeManager.Domain;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,10 @@ namespace FridgeManager.Database.Repositories
 
         public Fridge GetById(Guid id, bool trackChanges) =>
             GetByCondition(f => f.Id.Equals(id), trackChanges).SingleOrDefault();
+
+        public IEnumerable<Fridge> GetFridgesByModel(Guid modelId, bool trackChanges) =>
+            GetByCondition(f => f.ModelId.Equals(modelId), trackChanges)
+                .Include(f => f.Model).OrderBy(e => e.Name);
 
         public void Delete(Fridge model) => Delete(model);
     }
