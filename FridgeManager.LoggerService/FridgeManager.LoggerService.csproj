@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FridgeManager.Interfaces\FridgeManager.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>
