@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FridgeManager.Domain\FridgeManager.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
