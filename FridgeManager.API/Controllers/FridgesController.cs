@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FridgeManager.Domain.DTO.Fridge;
+using FridgeManager.Domain.DTO.FridgeProduct;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -89,7 +90,7 @@ namespace FridgeManager.API.Controllers
             _mapper.Map(fridge, fridgeEntity);
             _repository.Save();
 
-            return Ok("Fridge was updated!");
+            return Ok("Fridge was updated");
         }
 
         [HttpDelete("{id}")]
@@ -106,9 +107,101 @@ namespace FridgeManager.API.Controllers
             _repository.FridgeRepository.Delete(fridge);
             _repository.Save();
 
-            return NoContent();
+            return Ok("Fridge was deleted");
         }
 
         #endregion
+
+        #region Actions with products
+
+        [HttpGet("{id}")]
+        public IActionResult GetProductsInFridge(Guid id)
+        {
+            var fridge = _repository.FridgeRepository.GetById(id, trackChanges: false);
+
+            if (fridge == null)
+            {
+                _logger.LogInfo($"Fridge with id: {id} doesn't exist in the database.");
+                return NotFound();
+            }
+
+            var fridgeProducts = _repository.FridgeProductRepository.GetProductsInFridge(id, trackChanges: false);
+            var fridgeProductsToReturn = _mapper.Map<IEnumerable<FridgeProductTotalDto>>(fridgeProducts);
+
+            return Ok(fridgeProductsToReturn);
+        }
+
+        [HttpPost]
+        public IActionResult PutProductInFridge([FromBody] FridgeProductForCreationDto fridgeProduct)
+        {
+            if (fridgeProduct == null)
+            {
+                _logger.LogError("FridgeProductForCreationDto object sent from client is null.");
+            }
+
+            var fridgeProductEntity = _mapper.Map<FridgeProduct>(fridgeProduct);
+
+            _repository.FridgeProductRepository.Create(fridgeProductEntity);
+            _repository.Save();
+
+            return Ok("Product was put in fridge");
+        }
+
+        [HttpPut]
+        public IActionResult UpdateProductInFridge([FromBody] FridgeProductForUpdateDto fridgeProduct)
+        {
+            if (fridgeProduct == null)
+            {
+                _logger.LogError("FridgeProductForUpdateDto object sent from client is null.");
+                return BadRequest("FridgeProductForUpdateDto obgect is null");
+            }
+
+            var fridgeProductEntity = _repository.FridgeProductRepository.GetById(fridgeProduct.Id, trackChanges: true);
+
+            if (fridgeProductEntity == null)
+            {
+                _logger.LogInfo($"FridgeProduct with id: {fridgeProduct.Id} doesn't exist in datebase");
+                return NotFound();
+            }
+
+            _mapper.Map(fridgeProduct, fridgeProductEntity);
+            _repository.Save();
+
+            return Ok("Product in fridge was updated");
+        }
+
+        // TODO: Not working
+        [HttpDelete("{fridgeId} {productId}")]
+        public IActionResult DeleteProductFromFridge(Guid fridgeId, Guid productId)
+        {
+            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false)
+                .Where(fp => fp.FridgeId.Equals(fridgeId) && fp.ProductId.Equals(productId)).ToList();
+
+            if (fridgeProducts == null)
+            {
+                _logger.LogInfo($"Such product in fridge doesn't exist in the database.");
+                return NotFound();
+            }
+
+            foreach (FridgeProduct fridgeProduct in fridgeProducts)
+                _repository.FridgeProductRepository.Delete(fridgeProduct);
+
+            _repository.Save();
+
+            return Ok("Product was removed from the fridge");
+        }
+
+        #endregion
+
+        [HttpPost]
+        public IActionResult ChangeNullQuantity()
+        {
+            _repository.FridgeProductRepository.ChangeNullQuantity();
+
+            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false);
+            var fridgeProductsDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProducts);
+
+            return Ok(fridgeProductsDto);
+        }
     }
 }

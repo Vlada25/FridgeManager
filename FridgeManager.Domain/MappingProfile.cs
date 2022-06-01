@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.DTO.FridgeModel;
+using FridgeManager.Domain.DTO.FridgeProduct;
 using FridgeManager.Domain.DTO.Product;
 using FridgeManager.Domain.Models;
 using FridgeManager.Domain.Models.Authorization;
@@ -26,9 +27,14 @@ namespace FridgeManager.Domain
             CreateMap<RegisterUser, User>();
             CreateMap<LoginUser, User>();
 
-            //CreateMap<FridgeProduct, FridgeProductDto>()
-            //    .ForMember(fp => fp.Firdge, opt => opt.MapFrom(x => $"{x.Fridge.Name} ({x.Fridge.OwnerName})"))
-            //    .ForMember(fp => fp.Product, opt => opt.MapFrom(x => x.Product.Name));
+            CreateMap<FridgeProduct, FridgeProductDto>()
+                .ForMember(fp => fp.Firdge, opt => opt.MapFrom(x => $"{x.Fridge.Name} ({x.Fridge.OwnerName})"))
+                .ForMember(fp => fp.Product, opt => opt.MapFrom(x => x.Product.Name));
+
+            CreateMap<FridgeProduct, FridgeProductTotalDto>()
+                .ForMember(fp => fp.Firdge, opt => opt.MapFrom(x => $"{x.Fridge.Name} ({x.Fridge.OwnerName})"))
+                .ForMember(fp => fp.Product, opt => opt.MapFrom(x => x.Product.Name))
+                .ForMember(fp => fp.TotalQuantity, opt => opt.MapFrom(x => x.Quantity));
 
             CreateMap<FridgeForCreationDto, Fridge>();
             CreateMap<FridgeModelForCreationDto, FridgeModel>();

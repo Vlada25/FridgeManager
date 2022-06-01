@@ -88,7 +88,7 @@ namespace FridgeManager.API.Controllers
             _mapper.Map(model, modelEntity);
             _repository.Save();
 
-            return NoContent();
+            return Ok("Fridge model was updated");
         }
 
         [HttpDelete("{id}")]
@@ -105,12 +105,12 @@ namespace FridgeManager.API.Controllers
             _repository.FridgeModelRepository.Delete(model);
             _repository.Save();
 
-            return NoContent();
+            return Ok("Fridge model was deleted");
         }
 
         #endregion
 
-        [HttpGet("{modelId}/fridge")]
+        [HttpGet("{modelId}/fridges")]
         public IActionResult GetFridgesByModel(Guid modelId)
         {
             var model = _repository.FridgeModelRepository.GetById(modelId, trackChanges: false);

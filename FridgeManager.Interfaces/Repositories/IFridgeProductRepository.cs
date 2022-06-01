@@ -13,5 +13,7 @@ namespace FridgeManager.Interfaces.Repositories
         FridgeProduct GetById(Guid id, bool trackChanges);
         void Create(FridgeProduct model);
         void Delete(FridgeProduct model);
+        void ChangeNullQuantity();
+        IEnumerable<FridgeProduct> GetProductsInFridge(Guid fridgeId, bool trackChanges);
     }
 }

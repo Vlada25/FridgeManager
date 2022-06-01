@@ -77,7 +77,7 @@ namespace FridgeManager.Domain
             }
 
             // Products in fridges
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 500; i++)
             {
                 int fridgeIndex = new Random((int)DateTime.Now.Ticks + i).Next(Fridges.Count);
                 int productIndex = new Random((int)DateTime.Now.Ticks + i).Next(Products.Count);

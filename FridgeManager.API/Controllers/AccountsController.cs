@@ -26,6 +26,7 @@ namespace FridgeManager.API.Controllers
             _mapper = mapper;
         }
 
+        // TODO: Learn about secret key
         [HttpPost]
         public IActionResult Login([FromBody] LoginUser loginUser)
         {
