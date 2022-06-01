@@ -14,14 +14,14 @@ namespace FridgeManager.Database.Repositories
         public FridgeProductRepository(FridgeManagerDbContext dbContext)
             : base(dbContext) { }
 
-        public void Create(FridgeProduct model) => Create(model);
+        public void Create(FridgeProduct model) => CreateEntity(model);
 
         public IEnumerable<FridgeProduct> GetAll(bool trackChanges) =>
-            GetAll(trackChanges);
+            GetAllEntities(trackChanges);
 
         public FridgeProduct GetById(Guid id, bool trackChanges) =>
             GetByCondition(fm => fm.Id.Equals(id), trackChanges).SingleOrDefault();
 
-        public void Delete(FridgeProduct model) => Delete(model);
+        public void Delete(FridgeProduct model) => DeleteEntity(model);
     }
 }

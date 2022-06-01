@@ -9,21 +9,23 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private IRepositoryManager _repository;
         private ILoggerManager _logger;
         private IMapper _mapper;
 
-        public ProductController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
+        public ProductsController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
         {
             _repository = repositoryManager;
             _logger = loggerManager;
             _mapper = mapper;
         }
 
+        #region CRUD
+
         [HttpGet]
-        public IActionResult GetAllProducts()
+        public IActionResult GetAll()
         {
             var products = _repository.ProductRepository.GetAll(trackChanges: false);
 
@@ -32,7 +34,7 @@ namespace FridgeManager.API.Controllers
 
 
         [HttpGet("{id}", Name = "ProductById")]
-        public IActionResult GetProduct(Guid id)
+        public IActionResult Get(Guid id)
         {
             var product = _repository.ProductRepository.GetById(id, trackChanges: false);
 
@@ -48,7 +50,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateProduct([FromBody] ProductForCreationDto product)
+        public IActionResult Create([FromBody] ProductForCreationDto product)
         {
             if (product == null)
             {
@@ -64,7 +66,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateProduct([FromBody] ProductForUpdateDto product)
+        public IActionResult Update([FromBody] ProductForUpdateDto product)
         {
             if (product == null)
             {
@@ -87,7 +89,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(Guid id)
+        public IActionResult Delete(Guid id)
         {
             var product = _repository.ProductRepository.GetById(id, trackChanges: false);
 
@@ -102,5 +104,7 @@ namespace FridgeManager.API.Controllers
 
             return NoContent();
         }
+
+        #endregion
     }
 }

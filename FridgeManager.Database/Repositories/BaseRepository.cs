@@ -19,17 +19,17 @@ namespace FridgeManager.Database.Repositories
             this.dbContext = dbContext;
         }
 
-        public void Create(T entity)
+        public void CreateEntity(T entity)
         {
             dbContext.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
+        public void DeleteEntity(T entity)
         {
             dbContext.Set<T>().Remove(entity);
         }
 
-        public IQueryable<T> GetAll(bool trackChanges)
+        public IQueryable<T> GetAllEntities(bool trackChanges)
         {
             return !trackChanges ? dbContext.Set<T>().AsNoTracking() : dbContext.Set<T>();
         }
@@ -41,7 +41,7 @@ namespace FridgeManager.Database.Repositories
                 dbContext.Set<T>().Where(expression);
         }
 
-        public void Update(T entity)
+        public void UpdateEntity(T entity)
         {
             dbContext.Set<T>().Update(entity);
         }

@@ -15,18 +15,18 @@ namespace FridgeManager.Database.Repositories
         public FridgeRepository(FridgeManagerDbContext dbContext)
             : base(dbContext) { }
 
-        public void Create(Fridge model) => Create(model);
+        public void Create(Fridge model) => CreateEntity(model);
 
         public IEnumerable<Fridge> GetAll(bool trackChanges) =>
-            GetAll(trackChanges);
+            GetAllEntities(trackChanges).Include(f => f.Model).OrderBy(f => f.Name);
 
         public Fridge GetById(Guid id, bool trackChanges) =>
-            GetByCondition(f => f.Id.Equals(id), trackChanges).SingleOrDefault();
+            GetByCondition(f => f.Id.Equals(id), trackChanges).Include(f => f.Model).SingleOrDefault();
 
         public IEnumerable<Fridge> GetFridgesByModel(Guid modelId, bool trackChanges) =>
             GetByCondition(f => f.ModelId.Equals(modelId), trackChanges)
                 .Include(f => f.Model).OrderBy(e => e.Name);
 
-        public void Delete(Fridge model) => Delete(model);
+        public void Delete(Fridge model) => DeleteEntity(model);
     }
 }

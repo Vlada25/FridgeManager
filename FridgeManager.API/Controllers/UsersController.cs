@@ -7,13 +7,13 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private IRepositoryManager _repository;
         private ILoggerManager _logger;
         private IMapper _mapper;
 
-        public UserController(IRepositoryManager repositoryManager,
+        public UsersController(IRepositoryManager repositoryManager,
             ILoggerManager loggerManager,
             IMapper mapper)
         {
@@ -23,7 +23,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public IActionResult GetAll()
         {
             var users = _repository.UserRepository.GetAll(trackChanges: false);
 
@@ -31,7 +31,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpGet("{login}")]
-        public IActionResult GetUser(string login)
+        public IActionResult Get(string login)
         {
             var user = _repository.UserRepository.GetByLogin(login, trackChanges: false);
 

@@ -10,21 +10,23 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class FridgeModelController : ControllerBase
+    public class FridgeModelsController : ControllerBase
     {
         private IRepositoryManager _repository;
         private ILoggerManager _logger;
         private IMapper _mapper;
 
-        public FridgeModelController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
+        public FridgeModelsController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
         {
             _repository = repositoryManager;
             _logger = loggerManager;
             _mapper = mapper;
         }
 
+        #region CRUD
+
         [HttpGet]
-        public IActionResult GetAllModels()
+        public IActionResult GetAll()
         {
             var models = _repository.FridgeModelRepository.GetAll(trackChanges: false);
             var modelsDto = _mapper.Map<IEnumerable<FridgeModelDto>>(models);
@@ -32,9 +34,8 @@ namespace FridgeManager.API.Controllers
             return Ok(modelsDto);
         }
 
-
         [HttpGet("{id}", Name = "ModelById")]
-        public IActionResult GetModel(Guid id)
+        public IActionResult Get(Guid id)
         {
             var model = _repository.FridgeModelRepository.GetById(id, trackChanges: false);
 
@@ -50,25 +51,8 @@ namespace FridgeManager.API.Controllers
             }
         }
 
-        [HttpGet("{modelId}/Fridge")]
-        public IActionResult GetFridgesByModel(Guid modelId)
-        {
-            var model = _repository.FridgeModelRepository.GetById(modelId, trackChanges: false);
-
-            if (model == null)
-            {
-                _logger.LogInfo($"Fridge model with id: {modelId} doesn't exist in datebase");
-                return NotFound();
-            }
-
-            var fridgesFromDb = _repository.FridgeRepository.GetFridgesByModel(modelId, trackChanges: false);
-            var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridgesFromDb);
-
-            return Ok(fridgesDto);
-        }
-
         [HttpPost]
-        public IActionResult CreateModel([FromBody] FridgeModelForCreationDto model)
+        public IActionResult Create([FromBody] FridgeModelForCreationDto model)
         {
             if (model == null)
             {
@@ -85,7 +69,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateModel([FromBody] FridgeModelForUpdateDto model)
+        public IActionResult Update([FromBody] FridgeModelForUpdateDto model)
         {
             if (model == null)
             {
@@ -108,7 +92,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteModel(Guid id)
+        public IActionResult Delete(Guid id)
         {
             var model = _repository.FridgeModelRepository.GetById(id, trackChanges: false);
 
@@ -122,6 +106,25 @@ namespace FridgeManager.API.Controllers
             _repository.Save();
 
             return NoContent();
+        }
+
+        #endregion
+
+        [HttpGet("{modelId}/fridge")]
+        public IActionResult GetFridgesByModel(Guid modelId)
+        {
+            var model = _repository.FridgeModelRepository.GetById(modelId, trackChanges: false);
+
+            if (model == null)
+            {
+                _logger.LogInfo($"Fridge model with id: {modelId} doesn't exist in datebase");
+                return NotFound();
+            }
+
+            var fridgesFromDb = _repository.FridgeRepository.GetFridgesByModel(modelId, trackChanges: false);
+            var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridgesFromDb);
+
+            return Ok(fridgesDto);
         }
     }
 }

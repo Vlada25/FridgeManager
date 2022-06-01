@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FridgeManager.Domain.Models
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         [Key]
         public Guid Id { get; set; }

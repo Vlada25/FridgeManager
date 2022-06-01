@@ -14,10 +14,10 @@ namespace FridgeManager.Database.Repositories
         public UserRepository(FridgeManagerDbContext dbContext)
             : base(dbContext) { }
 
-        public void Create(User model) => Create(model);
+        public void Create(User model) => CreateEntity(model);
 
         public IEnumerable<User> GetAll(bool trackChanges) =>
-            GetAll(trackChanges);
+            GetAllEntities(trackChanges);
 
         public User GetById(Guid id, bool trackChanges) =>
             GetByCondition(u => u.Id.Equals(id), trackChanges).SingleOrDefault();
@@ -25,6 +25,6 @@ namespace FridgeManager.Database.Repositories
         public User GetByLogin(string login, bool trackChanges) =>
             GetByCondition(u => u.Login.Equals(login), trackChanges).SingleOrDefault();
 
-        public void Delete(User model) => Delete(model);
+        public void Delete(User model) => DeleteEntity(model);
     }
 }

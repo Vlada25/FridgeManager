@@ -9,21 +9,23 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class FridgeController : ControllerBase
+    public class FridgesController : ControllerBase
     {
         private IRepositoryManager _repository;
         private ILoggerManager _logger;
         private IMapper _mapper;
 
-        public FridgeController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
+        public FridgesController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
         {
             _repository = repositoryManager;
             _logger = loggerManager;
             _mapper = mapper;
         }
 
+        #region CRUD
+
         [HttpGet]
-        public IActionResult GetAllFridges()
+        public IActionResult GetAll()
         {
             var fridges = _repository.FridgeRepository.GetAll(trackChanges: false);
             var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
@@ -33,7 +35,7 @@ namespace FridgeManager.API.Controllers
 
 
         [HttpGet("{id}", Name = "FridgeById")]
-        public IActionResult GetFridge(Guid id)
+        public IActionResult Get(Guid id)
         {
             var fridge = _repository.FridgeRepository.GetById(id, trackChanges: false);
 
@@ -50,7 +52,7 @@ namespace FridgeManager.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateFridge([FromBody] FridgeForCreationDto fridge)
+        public IActionResult Create([FromBody] FridgeForCreationDto fridge)
         {
             if (fridge == null)
             {
@@ -63,11 +65,12 @@ namespace FridgeManager.API.Controllers
             _repository.Save();
 
             var fridgeToReturn = _mapper.Map<FridgeDto>(fridgeEntity);
+
             return CreatedAtRoute("FridgeById", new { id = fridgeToReturn.Id }, fridgeToReturn);
         }
 
         [HttpPut]
-        public IActionResult UpdateFridge([FromBody] FridgeForUpdateDto fridge)
+        public IActionResult Update([FromBody] FridgeForUpdateDto fridge)
         {
             if (fridge == null)
             {
@@ -86,11 +89,11 @@ namespace FridgeManager.API.Controllers
             _mapper.Map(fridge, fridgeEntity);
             _repository.Save();
 
-            return NoContent();
+            return Ok("Fridge was updated!");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteFridge(Guid id)
+        public IActionResult Delete(Guid id)
         {
             var fridge = _repository.FridgeRepository.GetById(id, trackChanges: false);
 
@@ -105,5 +108,7 @@ namespace FridgeManager.API.Controllers
 
             return NoContent();
         }
+
+        #endregion
     }
 }
