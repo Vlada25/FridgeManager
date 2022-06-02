@@ -1,0 +1,30 @@
+﻿@model FridgeModelForUpdateDto
+
+@{
+    ViewData["Title"] = "Models";
+}
+
+<div>
+    <h3>Model Update</h3>
+    <form class="creation-form" method="post" asp-action="Update">
+        <div class="field-container">
+            <label asp-for="Id"></label>
+            <input asp-for="Id"/>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Name"></label>
+            <input asp-for="Name"/>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Year"></label>
+            <input asp-for="Year"/>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit" onclick="alert('Update request sent')">Update</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>
+</div>

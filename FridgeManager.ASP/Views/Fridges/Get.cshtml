@@ -1,0 +1,39 @@
+﻿@model FridgeDto
+
+@{
+    ViewData["Title"] = "Fridges";
+}
+
+<div>
+    <h3>Getting Fridge</h3>
+
+    <form class="getting-form" asp-action="Get" method="post">
+        <label>Fridge Id:</label>
+        <input type="text" name="id"/>
+        <br />
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit">Get</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>  
+
+    @if (@Model != null)
+    {
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Owner Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.FullModelName</td>
+                <td>@Model.OwnerName</td>
+            </tr>
+        </tbody>
+    </table>
+    }
+</div>

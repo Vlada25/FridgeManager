@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="menu-container">
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">All Entities</li>
+        <li><a href="/Fridge/GetAll">Fridges</a></li>
+        <li><a href="/FridgeModel/GetAll">Models</a></li>
+        <li><a href="/Product/GetAll">Products</a></li>
+        <li><a href="/FridgeProduct/GetAll">Products in Fridges</a></li>
+    </ul>
+    
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Entity By Id</li>
+        <li><a href="/Fridge/Get">Fridge</a></li>
+        <li><a href="/FridgeModel/Get">Model</a></li>
+        <li><a href="/Product/Get">Product</a></li>
+        <li><a href="/FridgeProduct/Get">Product in Fridge</a></li>
+    </ul>
+    
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Create Entity</li>
+        <li><a href="/Fridge/Create">Fridge</a></li>
+        <li><a href="/FridgeModel/Create">Model</a></li>
+        <li><a href="/Product/Create">Product</a></li>
+        <li><a href="/FridgeProduct/Create">Product in Fridge</a></li>
+    </ul>
+
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Update Entity</li>
+        <li><a href="/Fridge/Update">Fridge</a></li>
+        <li><a href="/FridgeModel/Update">Model</a></li>
+        <li><a href="/Product/Update">Product</a></li>
+        <li><a href="/FridgeProduct/Update">Product in Fridge</a></li>
+    </ul>
+
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Delete Entity</li>
+        <li><a href="/Fridge/Delete">Fridge</a></li>
+        <li><a href="/FridgeModel/Delete">Model</a></li>
+        <li><a href="/Product/Delete">Product</a></li>
+        <li><a href="/FridgeProduct/Delete">Product in Fridge</a></li>
+    </ul>
+
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Special Requests</li>
+        <li><a href="/FridgeModel/GetFridgesByModel">Get Fridges By Model</a></li>
+        <li><a href="/FridgeProduct/GetProductsInFridge">Get Products In Fridge</a></li>
+        <li><a href="/FridgeProduct/ChangeNullQuantity">Change Null Quantity Of Products</a></li>
+    </ul>
+</div>

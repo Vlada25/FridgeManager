@@ -1,0 +1,25 @@
+﻿@model ProductForCreationDto
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div>
+    <h3>Product Creation</h3>
+    <form class="creation-form" method="post" asp-action="Create">
+        <div class="field-container">
+            <label asp-for="Name"></label>
+            <input asp-for="Name"/>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="DefaultQuantity">Default Quantity</label>
+            <input asp-for="DefaultQuantity"/>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit" onclick="alert('Creation request sent')">Create</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>
+</div>

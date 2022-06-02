@@ -1,0 +1,35 @@
+﻿<!DOCTYPE HTML>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="~/css/main.css" type="text/css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/tables.css" type="text/css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/forms.css" type="text/css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/buttons.css" type="text/css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/common.css" type="text/css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/containers.css" type="text/css" asp-append-version="true"/>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h2>Fridge Manager</h2>
+            <a class="sign-out-btn" href="/Home/StartPage">Sign Out</a>
+        </div>
+    </header>
+
+    <div id="main">
+        @RenderBody()
+    </div>
+    
+    <script>
+        function confirmRemoving() {
+            const isOk = confirm('Do you really want to delete the object?');
+            if (!isOk) {
+                document.querySelector('.del-text').textContent = '';
+            } 
+        }
+        
+    </script>
+</body>
+</html>

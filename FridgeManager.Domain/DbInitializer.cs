@@ -15,17 +15,17 @@ namespace FridgeManager.Domain
         public static List<FridgeProduct> FridgeProducts { get; }
 
 
-        private static string[] _modelsNames = { "TH-803", "514-NWE", "RC-54", "XM 4021-000", "DF 5180 W",
+        private static readonly string[] _modelsNames = { "TH-803", "514-NWE", "RC-54", "XM 4021-000", "DF 5180 W",
             "DS 333020", "VF 466 EB", "KGN36S55", "RB-34 K6220SS", "VF 910 X", "Electric MR-CR46G-HS-R",
             "RF-61 K90407F", "SBS 7212", "VF 395-1 SBS", "RSA1SHVB1" };
 
-        private static string[] _fridgeNames = { "Atlant", "Indesit", "Beko", "Vestfrost",
+        private static readonly string[] _fridgeNames = { "Atlant", "Indesit", "Beko", "Vestfrost",
             "Bosh", "Samsung", "Philyps", "Liebherr", "Stinol" };
 
-        private static string[] _fridgeOwners = { "Vlada", "Anna", "Andrew", "Polina", "Mariya",
+        private static readonly string[] _fridgeOwners = { "Vlada", "Anna", "Andrew", "Polina", "Mariya",
             "Dima", "Kirill", "Julia", "Nastya" };
 
-        private static string[] _productsNames = { "Bread", "Apple", "Yoghurt", "Egg", "Cheese", "Mashroom",
+        private static readonly string[] _productsNames = { "Bread", "Apple", "Yoghurt", "Egg", "Cheese", "Mashroom",
             "Chicken",  "Pork", "Beef", "Sausage", "Fish", "Avocado", "Broccoli", "Beans", "Carrot",
             "Cucumber", "Onion", "Garlic", "Potato", "Banana", "Cherry", "Grape", "Lemon", "Orange",
             "Peach", "Strawberry", "Raspberry", "Watermelon", "Butter", "Milk", "Kefir", "Chokolate",

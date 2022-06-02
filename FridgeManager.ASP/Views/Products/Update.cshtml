@@ -1,0 +1,30 @@
+﻿@model ProductForUpdateDto
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div>
+    <h3>Product Update</h3>
+    <form class="creation-form" method="post" asp-action="Update">
+        <div class="field-container">
+            <label asp-for="Id"></label>
+            <input asp-for="Id"/>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Name"></label>
+            <input asp-for="Name"/>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="DefaultQuantity"></label>
+            <input asp-for="DefaultQuantity"/>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit" onclick="alert('Update request sent')">Update</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>
+</div>

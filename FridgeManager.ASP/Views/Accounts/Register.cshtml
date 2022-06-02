@@ -1,0 +1,59 @@
+﻿@model RegisterUser
+
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<div>
+    <h3>Registration</h3>
+    @if (ViewData["Message"] != null)
+    {
+        <h5 style="color: red">@ViewData["Message"]</h5>
+    }
+    <form class="creation-form" method="post" asp-action="Register">
+        <div class="field-container">
+            <label asp-for="UserName">Full Name</label>
+            <div>
+                <input asp-for="UserName"/>
+                <span class="error-mes-span" asp-validation-for="UserName"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Email"></label>
+            <div>
+                <input asp-for="Email"/>
+                <span class="error-mes-span" asp-validation-for="Email"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Login"></label>
+            <div>
+                <input asp-for="Login"/>
+                <span class="error-mes-span" asp-validation-for="Login"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Password"></label>
+            <div>
+                <input asp-for="Password"/>
+                <span class="error-mes-span" asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="ConfirmPassword"></label>
+            <div>
+                <input asp-for="ConfirmPassword"/>
+                <span class="error-mes-span" asp-validation-for="ConfirmPassword"></span>
+            </div>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit">Register</button>
+            <a class="back-btn" href="/">Back</a>
+        </div>
+    </form>
+</div>

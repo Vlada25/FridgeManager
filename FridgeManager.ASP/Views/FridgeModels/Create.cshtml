@@ -1,0 +1,25 @@
+﻿@model FridgeModelForCreationDto
+
+@{
+    ViewData["Title"] = "Models";
+}
+
+<div>
+    <h3>Model Creation</h3>
+    <form class="creation-form" method="post" asp-action="Create">
+        <div class="field-container">
+            <label asp-for="Name"></label>
+            <input asp-for="Name"/>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Year"></label>
+            <input asp-for="Year"/>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit" onclick="alert('Creation request sent')">Create</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>
+</div>
