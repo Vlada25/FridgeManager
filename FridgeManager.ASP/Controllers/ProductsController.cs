@@ -8,14 +8,15 @@ namespace FridgeManager.ASP.Controllers
     [Route("[controller]/[action]/")]
     public class ProductsController : Controller
     {
-        private readonly string _host = @"https://localhost:5001/api/Product/";
+        private readonly string _host = @"https://localhost:5001/api/Products/";
+
+        #region CRUD
 
         [HttpGet]
-        [HttpGet("~/[controller]/")]
         public async Task<IActionResult> GetAll()
         {
             using HttpClient http = new();
-            var result = await http.GetAsync(_host);
+            var result = await http.GetAsync(_host + "GetAll");
 
             var products = JsonConvert.DeserializeObject<List<Product>>(result.Content.ReadAsStringAsync().Result);
 
@@ -32,7 +33,7 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}{id}");
+            var result = await httpClient.GetAsync($"{_host}Get/{id}");
 
             var product = JsonConvert.DeserializeObject<Product>(await result.Content.ReadAsStringAsync());
 
@@ -50,8 +51,9 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Create(ProductForCreationDto product)
         {
             using HttpClient httpClient = new();
-            await httpClient.PostAsJsonAsync(_host, product);
+            await httpClient.PostAsJsonAsync($"{_host}Create/", product);
 
+            ViewData["Message"] = $"Product {product.Name} was created";
             return View();
         }
 
@@ -66,8 +68,9 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Update(ProductForUpdateDto product)
         {
             using HttpClient httpClient = new();
-            await httpClient.PutAsJsonAsync($"{_host}", product);
+            await httpClient.PutAsJsonAsync($"{_host}Update/", product);
 
+            ViewData["Message"] = $"Product {product.Name} was updated";
             return View();
         }
 
@@ -81,9 +84,12 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             using HttpClient httpClient = new();
-            await httpClient.DeleteAsync($"{_host}{id}");
+            await httpClient.DeleteAsync($"{_host}Delete/{id}");
 
+            ViewData["Message"] = $"Product with id = {id} was deleted";
             return View();
         }
+
+        #endregion
     }
 }

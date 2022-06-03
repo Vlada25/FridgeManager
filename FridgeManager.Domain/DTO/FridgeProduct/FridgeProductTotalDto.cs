@@ -8,7 +8,7 @@ namespace FridgeManager.Domain.DTO.FridgeProduct
 {
     public class FridgeProductTotalDto
     {
-        public string Firdge { get; set; }
+        public string Fridge { get; set; }
         public string Product { get; set; }
         public int TotalQuantity { get; set; }
     }

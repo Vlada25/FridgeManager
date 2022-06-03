@@ -8,16 +8,15 @@ namespace FridgeManager.ASP.Controllers
     [Route("[controller]/[action]/")]
     public class FridgeModelsController : Controller
     {
-        private readonly string _host = @"https://localhost:5001/api/FridgeModel/";
+        private readonly string _host = @"https://localhost:5001/api/FridgeModels/";
 
         #region CRUD
 
         [HttpGet]
-        [HttpGet("~/[controller]/")]
         public async Task<IActionResult> GetAll()
         {
             using HttpClient http = new();
-            var result = await http.GetAsync(_host);
+            var result = await http.GetAsync(_host + "GetAll");
 
             var models = JsonConvert.DeserializeObject<List<FridgeModelDto>>(result.Content.ReadAsStringAsync().Result);
 
@@ -34,7 +33,7 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}{id}");
+            var result = await httpClient.GetAsync($"{_host}Get/{id}");
 
             var model = JsonConvert.DeserializeObject<FridgeModelDto>(await result.Content.ReadAsStringAsync());
 
@@ -52,8 +51,9 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Create(FridgeModelForCreationDto model)
         {
             using HttpClient httpClient = new();
-            await httpClient.PostAsJsonAsync(_host, model);
+            await httpClient.PostAsJsonAsync($"{_host}Create/", model);
 
+            ViewData["Message"] = $"Model {model.Name} was created";
             return View();
         }
 
@@ -68,8 +68,9 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Update(FridgeModelForUpdateDto model)
         {
             using HttpClient httpClient = new();
-            await httpClient.PutAsJsonAsync($"{_host}", model);
+            await httpClient.PutAsJsonAsync($"{_host}Update/", model);
 
+            ViewData["Message"] = $"Model {model.Name} was updated";
             return View();
         }
 
@@ -83,8 +84,9 @@ namespace FridgeManager.ASP.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             using HttpClient httpClient = new();
-            await httpClient.DeleteAsync($"{_host}{id}");
+            await httpClient.DeleteAsync($"{_host}Delete/{id}");
 
+            ViewData["Message"] = $"Model with id = {id} was deleted";
             return View();
         }
 
@@ -96,11 +98,12 @@ namespace FridgeManager.ASP.Controllers
             return View();
         }
 
+        // TODO: Fix error then sending incorrect id
         [HttpPost]
         public async Task<IActionResult> GetFridgesByModel(Guid modelId)
         {
             using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}{modelId}/Fridge");
+            var result = await httpClient.GetAsync($"{_host}GetFridgesByModel/{modelId}/Fridges");
 
             var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(result.Content.ReadAsStringAsync().Result);
 

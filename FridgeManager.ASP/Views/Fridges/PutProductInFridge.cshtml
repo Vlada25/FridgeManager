@@ -1,26 +1,26 @@
-﻿@model FridgeForCreationDto
+﻿@model FridgeProductForCreationDto
 
 @{
-    ViewData["Title"] = "Fridges";
+    ViewData["Title"] = "Putting product in fridge";
 }
 
 <div>
     <h3>Fridge Creation</h3>
 
-    <form class="creation-form" method="post" asp-action="Create">
+    <form class="creation-form" method="post" asp-action="PutProductInFridge">
         <div class="field-container">
-            <label asp-for="Name"></label>
-            <input asp-for="Name"/>
+            <label asp-for="FridgeId">Fridge Id</label>
+            <input asp-for="FridgeId"/>
         </div>
 
         <div class="field-container">
-            <label asp-for="OwnerName">Owner Name</label>
-            <input asp-for="OwnerName"/>
+            <label asp-for="ProductId">Product Id</label>
+            <input asp-for="ProductId"/>
         </div>
 
         <div class="field-container">
-            <label asp-for="ModelId">Model Id</label>
-            <input asp-for="ModelId"/>
+            <label asp-for="Quantity"></label>
+            <input asp-for="Quantity"/>
         </div>
 
         <div class="action-btn-container">

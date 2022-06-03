@@ -6,7 +6,7 @@ namespace FridgeManager.ASP.Controllers
     [Route("[controller]/[action]/")]
     public class AccountsController : Controller
     {
-        private readonly string _host = @"https://localhost:5001/api/Account/";
+        private readonly string _host = @"https://localhost:5001/api/Accounts/";
 
         [HttpGet]
         public IActionResult Login()
@@ -30,7 +30,7 @@ namespace FridgeManager.ASP.Controllers
             }
 
             using HttpClient httpClient = new();
-            var result = await httpClient.PostAsJsonAsync(_host + "Login", loginUser);
+            var result = await httpClient.PostAsJsonAsync(_host + "Login/", loginUser);
 
             if (result.IsSuccessStatusCode)
             {
@@ -51,11 +51,11 @@ namespace FridgeManager.ASP.Controllers
             }
 
             using HttpClient httpClient = new();
-            var result = await httpClient.PostAsJsonAsync(_host + "Register", registerUser);
+            var result = await httpClient.PostAsJsonAsync(_host + "Register/", registerUser);
 
             if (result.IsSuccessStatusCode)
             {
-                return RedirectToRoute(new { controller = "Account", action = "Login" });
+                return RedirectToRoute(new { controller = "Accounts", action = "Login" });
             }
 
             ViewData["Message"] = "Something went wrong!";

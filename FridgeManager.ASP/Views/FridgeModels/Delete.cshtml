@@ -13,5 +13,10 @@
             <button class="action-btn" type="submit" onclick="alert('Delete request sent')">Delete</button>
             <a class="back-btn" href="/Home/Index">Back</a>
         </div>
-    </form>  
+    </form> 
+    
+    @if (ViewData["Message"] != null)
+    {
+        <h5>@ViewData["Message"]</h5>
+    }
 </div>

@@ -170,7 +170,7 @@ namespace FridgeManager.API.Controllers
             return Ok("Product in fridge was updated");
         }
 
-        // TODO: Not working
+        // TODO: Not working removind product from fridge
         [HttpDelete("{fridgeId} {productId}")]
         public IActionResult DeleteProductFromFridge(Guid fridgeId, Guid productId)
         {

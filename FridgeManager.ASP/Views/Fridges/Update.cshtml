@@ -6,6 +6,7 @@
 
 <div>
     <h3>Fridge Update</h3>
+
     <form class="creation-form" method="post" asp-action="Update">
         <div class="field-container">
             <label asp-for="Id"></label>
@@ -32,4 +33,9 @@
             <a class="back-btn" href="/Home/Index">Back</a>
         </div>
     </form>
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5>@ViewData["Message"]</h5>
+    }
 </div>

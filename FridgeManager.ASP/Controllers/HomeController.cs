@@ -2,7 +2,6 @@
 
 namespace FridgeManager.ASP.Controllers
 {
-    [Route("[controller]/[action]/")]
     public class HomeController : Controller
     {
         public IActionResult Index()
