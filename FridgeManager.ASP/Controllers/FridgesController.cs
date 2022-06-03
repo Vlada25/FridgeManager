@@ -9,8 +9,12 @@ namespace FridgeManager.ASP.Controllers
     [Route("[controller]/[action]/")]
     public class FridgesController : Controller
     {
-        // TODO: Move to appsettings.json
-        private readonly string _host = @"https://localhost:5001/api/Fridges/";
+        private readonly string _host;
+
+        public FridgesController(string host)
+        {
+            _host = host + "Fridges/";
+        }
 
         #region CRUD
 

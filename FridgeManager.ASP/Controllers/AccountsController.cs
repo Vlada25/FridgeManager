@@ -6,7 +6,12 @@ namespace FridgeManager.ASP.Controllers
     [Route("[controller]/[action]/")]
     public class AccountsController : Controller
     {
-        private readonly string _host = @"https://localhost:5001/api/Accounts/";
+        private readonly string _host;
+
+        public AccountsController(string host)
+        {
+            _host = host + "Accounts/";
+        }
 
         [HttpGet]
         public IActionResult Login()

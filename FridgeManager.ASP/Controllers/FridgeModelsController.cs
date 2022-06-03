@@ -8,7 +8,12 @@ namespace FridgeManager.ASP.Controllers
     [Route("[controller]/[action]/")]
     public class FridgeModelsController : Controller
     {
-        private readonly string _host = @"https://localhost:5001/api/FridgeModels/";
+        private readonly string _host;
+
+        public FridgeModelsController(string host)
+        {
+            _host = host + "FridgeModels/";
+        }
 
         #region CRUD
 
