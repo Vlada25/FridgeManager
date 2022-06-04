@@ -85,7 +85,7 @@ namespace FridgeManager.API.Controllers
             _mapper.Map(product, productEntity);
             _repository.Save();
 
-            return NoContent();
+            return Ok("Product was updated");
         }
 
         [HttpDelete("{id}")]
@@ -102,7 +102,7 @@ namespace FridgeManager.API.Controllers
             _repository.ProductRepository.Delete(product);
             _repository.Save();
 
-            return NoContent();
+            return Ok("Product was deleted");
         }
 
         #endregion

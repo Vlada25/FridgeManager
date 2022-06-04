@@ -1,5 +1,6 @@
 ﻿using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.DTO.FridgeModel;
+using FridgeManager.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -23,7 +24,7 @@ namespace FridgeManager.ASP.Controllers
             using HttpClient http = new();
             var result = await http.GetAsync(_host + "GetAll");
 
-            var models = JsonConvert.DeserializeObject<List<FridgeModelDto>>(result.Content.ReadAsStringAsync().Result);
+            var models = JsonConvert.DeserializeObject<List<FridgeModel>>(result.Content.ReadAsStringAsync().Result);
 
             return View(models);
         }
@@ -40,7 +41,7 @@ namespace FridgeManager.ASP.Controllers
             using HttpClient httpClient = new();
             var result = await httpClient.GetAsync($"{_host}Get/{id}");
 
-            var model = JsonConvert.DeserializeObject<FridgeModelDto>(await result.Content.ReadAsStringAsync());
+            var model = JsonConvert.DeserializeObject<FridgeModel>(await result.Content.ReadAsStringAsync());
 
             return View(model);
         }

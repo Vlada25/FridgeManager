@@ -12,11 +12,27 @@ using FluentAssertions;
 using FridgeManager.Domain.DTO.FridgeModel;
 using AutoMapper;
 using System.Net;
+using FridgeManager.Domain;
 
 namespace FridgeManager.Tests.IntegrationTests
 {
     public class FridgeModelsControllerTests
     {
+        private static IMapper _mapper;
+
+        public FridgeModelsControllerTests()
+        {
+            if (_mapper == null)
+            {
+                var mappingConfig = new MapperConfiguration(mc =>
+                {
+                    mc.AddProfile(new MappingProfile());
+                });
+                IMapper mapper = mappingConfig.CreateMapper();
+                _mapper = mapper;
+            }
+        }
+
         private IEnumerable<FridgeModel> GetFridgeModelList()
         {
             return new List<FridgeModel>
@@ -89,7 +105,7 @@ namespace FridgeManager.Tests.IntegrationTests
         }
 
         [Fact]
-        public void GetAll_SendRequest_ReturnModelById()
+        public void Get_SendRequest_ReturnModelById()
         {
             // Arrange
             var repositoryManager = new Mock<IRepositoryManager>();
@@ -119,33 +135,81 @@ namespace FridgeManager.Tests.IntegrationTests
         }
 
         [Fact]
-        public void GetAll_SendRequest_ReturnNotFoundException()
+        public void Create_SendRequest_ReturnStatusCode201()
         {
             // Arrange
             var repositoryManager = new Mock<IRepositoryManager>();
-            var id = Guid.NewGuid();
+
+            FridgeModel fridgeModel = new FridgeModel
+            {
+                Name = "GG-123",
+                Year = 2013
+            };
+
+            FridgeModelForCreationDto fridgeModelForCreation = new FridgeModelForCreationDto
+            {
+                Name = "GG-123",
+                Year = 2013
+            };
+
+            repositoryManager.Setup(r => r.FridgeModelRepository.Create(fridgeModel));
+
+            var controller = new FridgeModelsController(repositoryManager.Object, null, _mapper);
+
+            // Act
+            var response = controller.Create(fridgeModelForCreation);
+
+            // Assert
+            Assert.IsType<CreatedAtRouteResult>(response);
+        }
+
+        [Fact]
+        public void Delete_SendRequest_ReturnStatusCode200()
+        {
+            // Arrange
+            var repositoryManager = new Mock<IRepositoryManager>();
+
+            var id = new Guid("b1525dab-732b-48b1-9146-96382a7e5303");
             var fridgeModel = GetFridgeModelList().ToList().Find(m => m.Id.Equals(id));
 
-            repositoryManager.Setup(r => r.FridgeModelRepository.GetById(It.IsAny<Guid>(), false))
+            repositoryManager.Setup(r => r.FridgeModelRepository.GetById(id, false))
                 .Returns(fridgeModel);
+            repositoryManager.Setup(r => r.FridgeModelRepository.Delete(fridgeModel));
 
             var controller = new FridgeModelsController(repositoryManager.Object, null, null);
 
             // Act
-            var response = controller.Get(id);
+            var response = controller.Delete(id);
 
             // Assert
             Assert.IsType<OkObjectResult>(response);
+        }
 
-            var result = response as OkObjectResult;
+        [Fact]
+        public void Update_SendRequest_ReturnStatusCode200()
+        {
+            // Arrange
+            var repositoryManager = new Mock<IRepositoryManager>();
 
-            Assert.NotNull(result.Value);
+            var id = new Guid("b1525dab-732b-48b1-9146-96382a7e5303");
+            var fridgeModel = GetFridgeModelList().ToList().Find(m => m.Id.Equals(id));
+            var fridgeModelForUpdate = new FridgeModelForUpdateDto
+            {
+                Id = id,
+                Name = "FF-000",
+                Year = 2011
+            };
 
-            var resultModel = result.Value as FridgeModel;
+            repositoryManager.Setup(r => r.FridgeModelRepository.GetById(id, true))
+                .Returns(fridgeModel);
 
-            Assert.Equal(fridgeModel.Id, resultModel.Id);
-            Assert.Equal(fridgeModel.Name, resultModel.Name);
-            Assert.Equal(fridgeModel.Year, resultModel.Year);
+            var controller = new FridgeModelsController(repositoryManager.Object, null, _mapper);
+
+            // Act
+            var response = controller.Update(fridgeModelForUpdate);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(response);
         }
     }
 }
