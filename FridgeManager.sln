@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32210.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.API", "FridgeManager.API\FridgeManager.API.csproj", "{58B7EF11-BF64-4A77-8B30-CED5AD002AC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.API", "FridgeManager.API\FridgeManager.API.csproj", "{58B7EF11-BF64-4A77-8B30-CED5AD002AC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.ASP", "FridgeManager.ASP\FridgeManager.ASP.csproj", "{C660316D-13B7-4647-80C7-05652C2AFFFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.ASP", "FridgeManager.ASP\FridgeManager.ASP.csproj", "{C660316D-13B7-4647-80C7-05652C2AFFFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.Domain", "FridgeManager.Domain\FridgeManager.Domain.csproj", "{80B99072-8E17-489F-9B1B-29D586BA8D9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.Domain", "FridgeManager.Domain\FridgeManager.Domain.csproj", "{80B99072-8E17-489F-9B1B-29D586BA8D9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.Database", "FridgeManager.Database\FridgeManager.Database.csproj", "{B4C83B14-7FD3-4B7E-B063-FBB1DB2EAE48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.Database", "FridgeManager.Database\FridgeManager.Database.csproj", "{B4C83B14-7FD3-4B7E-B063-FBB1DB2EAE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.Interfaces", "FridgeManager.Interfaces\FridgeManager.Interfaces.csproj", "{D315CE4D-A82F-436F-99F7-EBE7ED286A28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.Interfaces", "FridgeManager.Interfaces\FridgeManager.Interfaces.csproj", "{D315CE4D-A82F-436F-99F7-EBE7ED286A28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.LoggerService", "FridgeManager.LoggerService\FridgeManager.LoggerService.csproj", "{A16E8755-05E1-4A15-998A-108AC47B4C39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.LoggerService", "FridgeManager.LoggerService\FridgeManager.LoggerService.csproj", "{A16E8755-05E1-4A15-998A-108AC47B4C39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.Tests", "FridgeManager.Tests\FridgeManager.Tests.csproj", "{BD2DA565-4E02-4819-AF82-CB1E2C1D7B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{A16E8755-05E1-4A15-998A-108AC47B4C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A16E8755-05E1-4A15-998A-108AC47B4C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A16E8755-05E1-4A15-998A-108AC47B4C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2DA565-4E02-4819-AF82-CB1E2C1D7B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2DA565-4E02-4819-AF82-CB1E2C1D7B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2DA565-4E02-4819-AF82-CB1E2C1D7B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2DA565-4E02-4819-AF82-CB1E2C1D7B2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

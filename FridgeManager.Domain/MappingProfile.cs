@@ -21,8 +21,6 @@ namespace FridgeManager.Domain
                 .ForMember(f => f.FullModelName,
                     opt => opt.MapFrom(x => string.Join(' ', x.Name, x.Model.Name)));
 
-            CreateMap<FridgeModel, FridgeModelDto>();
-
             //CreateMap<User, UserDto>();
             CreateMap<RegisterUser, User>();
             CreateMap<LoginUser, User>();

@@ -29,9 +29,8 @@ namespace FridgeManager.API.Controllers
         public IActionResult GetAll()
         {
             var models = _repository.FridgeModelRepository.GetAll(trackChanges: false);
-            var modelsDto = _mapper.Map<IEnumerable<FridgeModelDto>>(models);
 
-            return Ok(modelsDto);
+            return Ok(models);
         }
 
         [HttpGet("{id}", Name = "ModelById")]
@@ -46,8 +45,7 @@ namespace FridgeManager.API.Controllers
             }
             else
             {
-                var modelDto = _mapper.Map<FridgeModelDto>(model);
-                return Ok(modelDto);
+                return Ok(model);
             }
         }
 
@@ -64,8 +62,7 @@ namespace FridgeManager.API.Controllers
             _repository.FridgeModelRepository.Create(modelEntity);
             _repository.Save();
 
-            var modelToReturn = _mapper.Map<FridgeModelDto>(modelEntity);
-            return CreatedAtRoute("ModelById", new { id = modelToReturn.Id }, modelToReturn);
+            return CreatedAtRoute("ModelById", new { id = modelEntity.Id }, modelEntity);
         }
 
         [HttpPut]

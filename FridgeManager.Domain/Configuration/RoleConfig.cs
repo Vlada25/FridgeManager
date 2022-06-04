@@ -1,4 +1,4 @@
-﻿using FridgeManager.Domain.Models.Authorization;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 
 namespace FridgeManager.Domain.Configuration
 {
-    public class UserConfig : IEntityTypeConfiguration<User>
+    public class RoleConfig : IEntityTypeConfiguration<IdentityRole>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
             builder.HasData
             (
-                new User
+                new IdentityRole
                 {
-                    UserName = "Vlada",
-                    Email = "aladka@gmail.com",
-                    Login = "aladka",
-                    Password = "1111"
+                    Name = "Admin",
+                    NormalizedName = "Administrator"
                 }
             );
         }

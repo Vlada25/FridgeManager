@@ -29,6 +29,7 @@ namespace FridgeManager.Domain
             modelBuilder.ApplyConfiguration(new FridgeConfig());
             modelBuilder.ApplyConfiguration(new ProductConfig());
             modelBuilder.ApplyConfiguration(new FridgeProductConfig());
+            modelBuilder.ApplyConfiguration(new RoleConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
         }
     }
