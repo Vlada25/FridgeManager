@@ -1,4 +1,4 @@
-﻿@model List<FridgeProductTotalDto>
+﻿@model List<FridgeProductDto>
 
 @{
     ViewData["Title"] = "Products in fridge";
@@ -22,6 +22,7 @@
         <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Fridge</th>
                 <th>Product</th>
                 <th>TotalQuantity</th>
@@ -31,9 +32,10 @@
             @foreach (var fridgeProduct in @Model)
             {
                 <tr>
+                    <td>@fridgeProduct.Id</td>
                     <td>@fridgeProduct.Fridge</td>
                     <td>@fridgeProduct.Product</td>
-                    <td>@fridgeProduct.TotalQuantity</td>
+                    <td>@fridgeProduct.Quantity</td>
                 </tr>
             }
         </tbody>

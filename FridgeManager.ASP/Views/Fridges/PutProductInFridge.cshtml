@@ -10,17 +10,26 @@
     <form class="creation-form" method="post" asp-action="PutProductInFridge">
         <div class="field-container">
             <label asp-for="FridgeId">Fridge Id</label>
-            <input asp-for="FridgeId"/>
+            <div>
+                <input asp-for="FridgeId"/>
+                <span class="error-mes-span" asp-validation-for="FridgeId"></span>
+            </div>
         </div>
 
         <div class="field-container">
             <label asp-for="ProductId">Product Id</label>
-            <input asp-for="ProductId"/>
+            <div>
+                <input asp-for="ProductId"/>
+                <span class="error-mes-span" asp-validation-for="ProductId"></span>
+            </div>
         </div>
 
         <div class="field-container">
             <label asp-for="Quantity"></label>
-            <input asp-for="Quantity"/>
+            <div>
+                <input asp-for="Quantity"/>
+                <span class="error-mes-span" asp-validation-for="Quantity"></span>
+            </div>
         </div>
 
         <div class="action-btn-container">

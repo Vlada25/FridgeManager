@@ -10,12 +10,18 @@
     <form class="creation-form" method="post" asp-action="Create">
         <div class="field-container">
             <label asp-for="Name"></label>
-            <input asp-for="Name"/>
+            <div>
+                <input asp-for="Name"/>
+                <span class="error-mes-span" asp-validation-for="Name"></span>
+            </div>
         </div>
 
         <div class="field-container">
             <label asp-for="Year"></label>
-            <input asp-for="Year"/>
+            <div>
+                <input asp-for="Year"/>
+                <span class="error-mes-span" asp-validation-for="Year"></span>
+            </div>
         </div>
 
         <div class="action-btn-container">

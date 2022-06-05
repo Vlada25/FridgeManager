@@ -15,7 +15,10 @@
 
         <div class="field-container">
             <label asp-for="Name"></label>
-            <input asp-for="Name"/>
+            <div>
+                <input asp-for="Name"/>
+                <span class="error-mes-span" asp-validation-for="Name"></span>
+            </div>
         </div>
 
         <div class="field-container">

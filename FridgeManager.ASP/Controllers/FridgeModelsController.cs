@@ -104,12 +104,17 @@ namespace FridgeManager.ASP.Controllers
             return View();
         }
 
-        // TODO: Fix error then sending incorrect id
         [HttpPost]
         public async Task<IActionResult> GetFridgesByModel(Guid modelId)
         {
             using HttpClient httpClient = new();
             var result = await httpClient.GetAsync($"{_host}GetFridgesByModel/{modelId}/Fridges");
+
+            if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                ViewData["Message"] = $"Model with id = {modelId} not found";
+                return View();
+            }
 
             var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(result.Content.ReadAsStringAsync().Result);
 

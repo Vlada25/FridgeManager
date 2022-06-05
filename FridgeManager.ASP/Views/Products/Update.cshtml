@@ -10,17 +10,26 @@
     <form class="creation-form" method="post" asp-action="Update">
         <div class="field-container">
             <label asp-for="Id"></label>
-            <input asp-for="Id"/>
+            <div>
+                <input asp-for="Id"/>
+                <span class="error-mes-span" asp-validation-for="Id"></span>
+            </div>
         </div>
 
         <div class="field-container">
             <label asp-for="Name"></label>
-            <input asp-for="Name"/>
+            <div>
+                <input asp-for="Name"/>
+                <span class="error-mes-span" asp-validation-for="Name"></span>
+            </div>
         </div>
 
         <div class="field-container">
             <label asp-for="DefaultQuantity"></label>
-            <input asp-for="DefaultQuantity"/>
+            <div>
+                <input asp-for="DefaultQuantity"/>
+                <span class="error-mes-span" asp-validation-for="DefaultQuantity"></span>
+            </div>
         </div>
 
         <div class="field-container">

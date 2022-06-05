@@ -15,7 +15,14 @@ namespace FridgeManager.Database.Repositories
         public FridgeProductRepository(FridgeManagerDbContext dbContext)
             : base(dbContext) { }
 
-        public void Create(FridgeProduct model) => CreateEntity(model);
+        public void Create(FridgeProduct model)
+        {
+            if (GetAllEntities(false).FirstOrDefault(fp => fp.FridgeId == model.FridgeId && fp.ProductId == model.ProductId) is not null)
+            {
+                throw new Exception("This product is alresdy exists in that fridge. You can update it.");
+            }
+            CreateEntity(model);
+        }
 
         public IEnumerable<FridgeProduct> GetAll(bool trackChanges) =>
             GetAllEntities(trackChanges).Include(f => f.Fridge).Include(f => f.Product);
@@ -30,27 +37,8 @@ namespace FridgeManager.Database.Repositories
             dbContext.Database.ExecuteSqlRaw("EXECUTE dbo.ChangeNullQuantity");
 
         // TODO: Implement with the stored procedure
-        public IEnumerable<FridgeProduct> GetProductsInFridge(Guid fridgeId, bool trackChanges)
-        {
-            var fridgeProducts = GetAllEntities(trackChanges).Include(f => f.Fridge).Include(f => f.Product).ToList();
-
-            List<FridgeProduct> fpToReturn = new List<FridgeProduct>();
-
-            foreach (var fridgeProduct in fridgeProducts.Where(fp => fp.FridgeId == fridgeId))
-            {
-                if (!fpToReturn.Select(fp => fp.ProductId).Contains(fridgeProduct.ProductId))
-                {
-                    fpToReturn.Add(fridgeProduct);
-                }
-                else
-                {
-                    int index = fpToReturn.Select(fp => fp.ProductId).ToList().IndexOf(fridgeProduct.ProductId);
-                    fpToReturn[index].Quantity += fridgeProduct.Quantity;
-                }
-            }
-
-            return fpToReturn;
-        }
-
+        public IEnumerable<FridgeProduct> GetProductsInFridge(Guid fridgeId, bool trackChanges) =>
+            GetAllEntities(trackChanges).Where(fp => fp.FridgeId == fridgeId)
+            .Include(f => f.Fridge).Include(f => f.Product).ToList();
     }
 }

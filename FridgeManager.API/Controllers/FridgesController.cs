@@ -126,7 +126,17 @@ namespace FridgeManager.API.Controllers
             }
 
             var fridgeProducts = _repository.FridgeProductRepository.GetProductsInFridge(id, trackChanges: false);
-            var fridgeProductsToReturn = _mapper.Map<IEnumerable<FridgeProductTotalDto>>(fridgeProducts);
+            var fridgeProductsToReturn = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProducts);
+
+            return Ok(fridgeProductsToReturn);
+        }
+
+        //TODO: Implement in ASP
+        [HttpGet]
+        public IActionResult GetAllProductsInAllFridges()
+        {
+            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false);
+            var fridgeProductsToReturn = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProducts);
 
             return Ok(fridgeProductsToReturn);
         }
@@ -141,12 +151,20 @@ namespace FridgeManager.API.Controllers
 
             var fridgeProductEntity = _mapper.Map<FridgeProduct>(fridgeProduct);
 
-            _repository.FridgeProductRepository.Create(fridgeProductEntity);
-            _repository.Save();
+            try
+            {
+                _repository.FridgeProductRepository.Create(fridgeProductEntity);
+                _repository.Save();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok("Product was put in fridge");
         }
 
+        // TODO: Implement in ASP
         [HttpPut]
         public IActionResult UpdateProductInFridge([FromBody] FridgeProductForUpdateDto fridgeProduct)
         {
@@ -170,28 +188,26 @@ namespace FridgeManager.API.Controllers
             return Ok("Product in fridge was updated");
         }
 
-        // TODO: Not working removind product from fridge
-        [HttpDelete("{fridgeId} {productId}")]
-        public IActionResult DeleteProductFromFridge(Guid fridgeId, Guid productId)
+        [HttpDelete("{fridgeProductId}")]
+        public IActionResult DeleteProductFromFridge(Guid fridgeProductId)
         {
-            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false)
-                .Where(fp => fp.FridgeId.Equals(fridgeId) && fp.ProductId.Equals(productId)).ToList();
+            var fridgeProduct = _repository.FridgeProductRepository.GetById(fridgeProductId, trackChanges: false);
 
-            if (fridgeProducts == null)
+            if (fridgeProduct == null)
             {
                 _logger.LogInfo($"Such product in fridge doesn't exist in the database.");
                 return NotFound();
             }
 
-            foreach (FridgeProduct fridgeProduct in fridgeProducts)
-                _repository.FridgeProductRepository.Delete(fridgeProduct);
-
+            _repository.FridgeProductRepository.Delete(fridgeProduct);
             _repository.Save();
 
             return Ok("Product was removed from the fridge");
         }
 
         #endregion
+
+        #region Special queries
 
         [HttpPost]
         public IActionResult ChangeNullQuantity()
@@ -203,5 +219,29 @@ namespace FridgeManager.API.Controllers
 
             return Ok(fridgeProductsDto);
         }
+
+
+        [HttpGet("{substring}")]
+        public IActionResult SearchFridgesBySubstring(string substring)
+        {
+            var fridges = _repository.FridgeRepository.SearchFridgesBySubstring(substring, trackChanges: false).ToList();
+                
+            var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
+
+            return Ok(fridgesDto);
+        }
+
+        [HttpGet]
+        public IActionResult GetYearOfTheMostSpaciousFridge()
+        {
+            _repository.FridgeProductRepository.ChangeNullQuantity();
+
+            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false);
+            var fridgeProductsDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProducts);
+
+            return Ok(fridgeProductsDto);
+        }
+
+        #endregion
     }
 }

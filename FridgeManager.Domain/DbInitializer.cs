@@ -121,13 +121,24 @@ namespace FridgeManager.Domain
                 int productIndex = new Random((int)DateTime.Now.Ticks + i).Next(Products.Count);
                 int quantity = new Random((int)DateTime.Now.Ticks + i).Next(14);
 
-                FridgeProducts.Add(new FridgeProduct
+                Guid fridgeId = Fridges[fridgeIndex].Id;
+                Guid productId = Products[productIndex].Id;
+
+                if (FridgeProducts.FirstOrDefault(fp => fp.FridgeId == fridgeId && fp.ProductId == productId) != null)
                 {
-                    Id = Guid.NewGuid(),
-                    FridgeId = Fridges[fridgeIndex].Id,
-                    ProductId = Products[productIndex].Id,
-                    Quantity = quantity
-                });
+                    int index = FridgeProducts.IndexOf(FridgeProducts.First(fp => fp.FridgeId == fridgeId && fp.ProductId == productId));
+                    FridgeProducts[index].Quantity += quantity;
+                }
+                else
+                {
+                    FridgeProducts.Add(new FridgeProduct
+                    {
+                        Id = Guid.NewGuid(),
+                        FridgeId = fridgeId,
+                        ProductId = productId,
+                        Quantity = quantity
+                    });
+                }
             }
         }
     }

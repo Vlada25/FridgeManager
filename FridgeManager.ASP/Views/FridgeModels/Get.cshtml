@@ -19,21 +19,28 @@
 
     @if (@Model != null)
     {
-        <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Year</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Model.Id</td>
-                <td>@Model.Name</td>
-                <td>@Model.Year</td>
-            </tr>
-        </tbody>
-    </table>
+        if (@Model.Name != null)
+        {
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.Year</td>
+                </tr>
+            </tbody>
+            </table>
+        }
+        else
+        {
+            <h5 style="color: red">Model not found!</h5>
+        }
     }
 </div>

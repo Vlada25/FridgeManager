@@ -11,7 +11,9 @@ namespace FridgeManager.Interfaces.Repositories
     {
         IEnumerable<Fridge> GetAll(bool trackChanges);
         IEnumerable<Fridge> GetFridgesByModel(Guid modelId, bool trackChanges);
+        IEnumerable<Fridge> SearchFridgesBySubstring(string substring, bool trackChanges);
         Fridge GetById(Guid id, bool trackChanges);
+        int GetYearOfTheMostSpaciousFridge();
         void Create(Fridge model);
         void Delete(Fridge model);
     }

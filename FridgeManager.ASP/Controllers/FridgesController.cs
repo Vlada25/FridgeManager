@@ -112,7 +112,7 @@ namespace FridgeManager.ASP.Controllers
             using HttpClient httpClient = new();
             var result = await httpClient.GetAsync($"{_host}GetProductsInFridge/{id}");
 
-            var fridgeProducts = JsonConvert.DeserializeObject<List<FridgeProductTotalDto>>(result.Content.ReadAsStringAsync().Result);
+            var fridgeProducts = JsonConvert.DeserializeObject<List<FridgeProductDto>>(result.Content.ReadAsStringAsync().Result);
 
             return View(fridgeProducts);
         }

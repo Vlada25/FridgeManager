@@ -26,13 +26,8 @@ namespace FridgeManager.Domain
             CreateMap<LoginUser, User>();
 
             CreateMap<FridgeProduct, FridgeProductDto>()
-                .ForMember(fp => fp.Firdge, opt => opt.MapFrom(x => $"{x.Fridge.Name} ({x.Fridge.OwnerName})"))
-                .ForMember(fp => fp.Product, opt => opt.MapFrom(x => x.Product.Name));
-
-            CreateMap<FridgeProduct, FridgeProductTotalDto>()
                 .ForMember(fp => fp.Fridge, opt => opt.MapFrom(x => $"{x.Fridge.Name} ({x.Fridge.OwnerName})"))
-                .ForMember(fp => fp.Product, opt => opt.MapFrom(x => x.Product.Name))
-                .ForMember(fp => fp.TotalQuantity, opt => opt.MapFrom(x => x.Quantity));
+                .ForMember(fp => fp.Product, opt => opt.MapFrom(x => x.Product.Name));
 
             CreateMap<FridgeForCreationDto, Fridge>();
             CreateMap<FridgeModelForCreationDto, FridgeModel>();

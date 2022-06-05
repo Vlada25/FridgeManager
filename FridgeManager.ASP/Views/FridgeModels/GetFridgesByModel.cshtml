@@ -17,6 +17,11 @@
         </div>
     </form>  
 
+    @if (ViewData["Message"] != null)
+    {
+        <h5 style="color: red">@ViewData["Message"]</h5>
+    }
+
     @if (@Model != null)
     {
         <table class="table">

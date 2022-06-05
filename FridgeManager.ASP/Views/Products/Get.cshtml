@@ -19,23 +19,30 @@
 
     @if (@Model != null)
     {
-        <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Default Quantity</th>
-                <th>Image</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Model.Id</td>
-                <td>@Model.Name</td>
-                <td>@Model.DefaultQuantity</td>
-                <td><img src="@Model.ImageSource" alt="" style="width: 100px; height: 100px"></td>
-            </tr>
-        </tbody>
-    </table>
+        if (@Model.Name != null)
+        {
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Default Quantity</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.DefaultQuantity</td>
+                    <td><img src="@Model.ImageSource" alt="" style="width: 100px; height: 100px"></td>
+                </tr>
+            </tbody>
+            </table>
+        }
+        else
+        {
+            <h5 style="color: red">Product not found!</h5>
+        }
     }
 </div>
