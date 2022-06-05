@@ -10,5 +10,6 @@ namespace FridgeManager.Domain.DTO.Product
     {
         public string Name { get; set; }
         public int DefaultQuantity { get; set; }
+        public string ImageSource { get; set; }
     }
 }

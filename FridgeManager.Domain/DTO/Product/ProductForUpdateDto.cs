@@ -11,5 +11,6 @@ namespace FridgeManager.Domain.DTO.Product
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int DefaultQuantity { get; set; }
+        public string ImageSource { get; set; }
     }
 }
