@@ -1,5 +1,6 @@
 ﻿using FridgeManager.Domain;
 using FridgeManager.Interfaces.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ namespace FridgeManager.Database.Repositories
             dbContext.Set<T>().Remove(entity);
         }
 
+        public object ExecuteScalar(string sqlQuery, SqlParameter param)
+        {
+            dbContext.Database.ExecuteSqlRaw(sqlQuery, param);
+            return param.Value;
+        }
+
         public IQueryable<T> GetAllEntities(bool trackChanges)
         {
             return !trackChanges ? dbContext.Set<T>().AsNoTracking() : dbContext.Set<T>();
@@ -45,5 +52,7 @@ namespace FridgeManager.Database.Repositories
         {
             dbContext.Set<T>().Update(entity);
         }
+
+
     }
 }

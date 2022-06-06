@@ -114,6 +114,12 @@ namespace FridgeManager.API.Controllers
 
         #region Actions with products
 
+        /// <summary>
+        /// Getting products by fridge id
+        /// (main task and also query set 2(1)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult GetProductsInFridge(Guid id)
         {
@@ -131,7 +137,11 @@ namespace FridgeManager.API.Controllers
             return Ok(fridgeProductsToReturn);
         }
 
-        //TODO: Implement in ASP
+        /// <summary>
+        /// Getting all products in all fridges
+        /// (main task and also query set 2(2)
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetAllProductsInAllFridges()
         {
@@ -164,7 +174,6 @@ namespace FridgeManager.API.Controllers
             return Ok("Product was put in fridge");
         }
 
-        // TODO: Implement in ASP
         [HttpPut]
         public IActionResult UpdateProductInFridge([FromBody] FridgeProductForUpdateDto fridgeProduct)
         {
@@ -209,6 +218,11 @@ namespace FridgeManager.API.Controllers
 
         #region Special queries
 
+        /// <summary>
+        /// Change products in fridge with quantity = 0 on default quantity
+        /// (minimal requirements #6)
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult ChangeNullQuantity()
         {
@@ -220,7 +234,12 @@ namespace FridgeManager.API.Controllers
             return Ok(fridgeProductsDto);
         }
 
-
+        /// <summary>
+        /// Searching fridge by letters or words, which fridge name contains
+        /// (additional task #1)
+        /// </summary>
+        /// <param name="substring"></param>
+        /// <returns></returns>
         [HttpGet("{substring}")]
         public IActionResult SearchFridgesBySubstring(string substring)
         {
@@ -231,17 +250,33 @@ namespace FridgeManager.API.Controllers
             return Ok(fridgesDto);
         }
 
+        /// <summary>
+        /// Getting year of model of the most specious fridge (by total products quantity)
+        /// (additional task #3)
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetYearOfTheMostSpaciousFridge()
         {
-            _repository.FridgeProductRepository.ChangeNullQuantity();
+            int year = _repository.FridgeRepository.GetYearOfTheMostSpaciousFridge();
 
-            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false);
-            var fridgeProductsDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProducts);
-
-            return Ok(fridgeProductsDto);
+            return Ok($"Year of the most spacious fridge: {year}");
         }
 
+        /// <summary>
+        /// Getting string which contains count of kinds products and Id of fridge
+        /// which contains max count of kinds of products
+        /// (additional task #4, but with some changes, 
+        /// you can get products in fridge by id in the other query)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetFridgeWhichContainsTheMostKindsOfProducts()
+        {
+            string outStr = _repository.FridgeRepository.GetFridgeWhichContainsTheMostKindsOfProducts();
+
+            return Ok(outStr);
+        }
         #endregion
     }
 }

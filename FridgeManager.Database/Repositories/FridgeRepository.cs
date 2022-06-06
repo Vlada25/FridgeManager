@@ -31,11 +31,30 @@ namespace FridgeManager.Database.Repositories
 
         public int GetYearOfTheMostSpaciousFridge()
         {
-            throw new NotImplementedException();
+            var param = new Microsoft.Data.SqlClient.SqlParameter
+            {
+                ParameterName = "@year",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Direction = System.Data.ParameterDirection.Output,
+                Size = 50
+            };
+            return (int)ExecuteScalar("dbo.YearOfTheMostSpaciousFridge @year OUT", param);
         }
 
         public IEnumerable<Fridge> SearchFridgesBySubstring(string substring, bool trackChanges) =>
             GetAllEntities(trackChanges).Where(f => f.Name.Contains(substring))
             .Include(f => f.Model).OrderBy(f => f.Name);
+
+        public string GetFridgeWhichContainsTheMostKindsOfProducts()
+        {
+            var param = new Microsoft.Data.SqlClient.SqlParameter
+            {
+                ParameterName = "@outStr",
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+                Direction = System.Data.ParameterDirection.Output,
+                Size = 200
+            };
+            return (string)ExecuteScalar("dbo.FridgeWhichContainsTheMostKindsOfProducts @outStr OUT", param);
+        }
     }
 }

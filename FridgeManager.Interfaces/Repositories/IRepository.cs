@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,5 +15,6 @@ namespace FridgeManager.Interfaces.Repositories
         void CreateEntity(T entity);
         void UpdateEntity(T entity);
         void DeleteEntity(T entity);
+        object ExecuteScalar(string sqlQuery, SqlParameter param);
     }
 }

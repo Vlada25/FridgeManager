@@ -705,6 +705,43 @@ namespace FridgeManager.Domain.Migrations
             migrationBuilder.Sql(@"CREATE PROC dbo.ChangeNullQuantity AS UPDATE FridgeProducts 
                 SET Quantity = (SELECT Products.DefaultQuantity FROM Products WHERE Products.Id 
                 = FridgeProducts.ProductId) WHERE Quantity = 0");
+
+            migrationBuilder.Sql(@"CREATE PROCEDURE dbo.YearOfTheMostSpaciousFridge 
+	            @year INT OUTPUT 
+                AS BEGIN 
+                DECLARE @maxCount INT 
+
+                SELECT @maxCount = MAX(SumOfQuantity) FROM 
+                (SELECT SUM(FridgeProducts.Quantity) AS SumOfQuantity FROM Fridges 
+                JOIN FridgeProducts ON FridgeProducts.FridgeId = Fridges.Id 
+                GROUP BY Fridges.Id) AS TotalQuantity 
+
+                SELECT @year = FridgeModels.Year FROM Fridges 
+                JOIN FridgeModels ON FridgeModels.Id = Fridges.ModelId 
+                JOIN FridgeProducts ON FridgeProducts.FridgeId = Fridges.Id 
+                GROUP BY Fridges.Id, FridgeModels.Year 
+                HAVING SUM(FridgeProducts.Quantity) = @maxCount 
+
+                END");
+
+            migrationBuilder.Sql(@"CREATE PROCEDURE dbo.FridgeWhichContainsTheMostKindsOfProducts 
+                @outStr NVARCHAR(200) OUTPUT 
+                AS BEGIN 
+                DECLARE @maxCount INT 
+                DECLARE @fridgeId NVARCHAR(50) 
+
+                SELECT @maxCount = MAX(ProductsCount) FROM 
+                (SELECT Fridges.Id, COUNT(FridgeProducts.Id) AS ProductsCount FROM Fridges 
+                JOIN FridgeProducts ON FridgeProducts.FridgeId = Fridges.Id 
+                GROUP BY Fridges.Id, Fridges.Name, Fridges.OwnerName) AS TotalProductsCount 
+
+                SELECT @fridgeId = Fridges.Id FROM Fridges 
+                JOIN FridgeProducts ON FridgeProducts.FridgeId = Fridges.Id 
+                GROUP BY Fridges.Id 
+                HAVING COUNT(FridgeProducts.Id) = @maxCount 
+
+                SET @outStr = 'Count of kinds of products: ' + CONVERT(VARCHAR, @maxCount) + '; Fridge Id: ' + @fridgeId  
+                END");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -743,6 +780,8 @@ namespace FridgeManager.Domain.Migrations
                 name: "FridgeModels");
 
             migrationBuilder.Sql(@"DROP PROC dbo.ChangeNullQuantity");
+            migrationBuilder.Sql(@"DROP PROC dbo.YearOfTheMostSpaciousFridge");
+            migrationBuilder.Sql(@"DROP PROC dbo.FridgeWhichContainsTheMostKindsOfProducts");
         }
     }
 }
