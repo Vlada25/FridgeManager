@@ -10,7 +10,10 @@
     <form class="creation-form" method="post" asp-action="Update">
         <div class="field-container">
             <label asp-for="Id"></label>
-            <input asp-for="Id"/>
+            <div>
+                <input asp-for="Id"/>
+                <span class="error-mes-span" asp-validation-for="Id"></span>
+            </div>
         </div>
 
         <div class="field-container">

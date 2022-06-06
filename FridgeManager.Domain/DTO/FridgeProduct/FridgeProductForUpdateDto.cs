@@ -9,8 +9,6 @@ namespace FridgeManager.Domain.DTO.FridgeProduct
     public class FridgeProductForUpdateDto
     {
         public Guid Id { get; set; }
-        public Guid FridgeId { get; set; }
-        public Guid ProductId { get; set; }
         public int Quantity { get; set; }
     }
 }

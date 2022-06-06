@@ -14,6 +14,6 @@ app.UseRouting();
 
 app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=StartPage}/");
+        pattern: "{controller=Home}/{action=Index}/");
 
 app.Run();

@@ -1,25 +1,13 @@
 ﻿@model List<FridgeProductDto>
 
 @{
-    ViewData["Title"] = "Products in fridge";
+    ViewData["Title"] = "Products in fridges";
 }
 
 <div>
-    <h3>Getting Products In Fridge</h3>
+     <h3 class="h3-above-table">All Products In Fridges</h3>
 
-    <form class="getting-form" asp-action="GetProductsInFridge" method="post">
-        <label>Fridge Id:</label>
-        <input type="text" name="id"/>
-        <br />
-        <div class="action-btn-container">
-            <button class="action-btn" type="submit">Get</button>
-            <a class="back-btn" href="/Home/Index">Back</a>
-        </div>
-    </form>  
-
-    @if (@Model != null)
-    {
-        <table class="table">
+     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -39,6 +27,7 @@
                 </tr>
             }
         </tbody>
-    </table>
-    }
+     </table>
+
+     <a class="back-btn" href="/Home/Index">Back</a>
 </div>

@@ -118,6 +118,17 @@ namespace FridgeManager.ASP.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAllProductsInAllFridges()
+        {
+            using HttpClient httpClient = new();
+            var result = await httpClient.GetAsync(_host + "GetAllProductsInAllFridges");
+
+            var fridgeProducts = JsonConvert.DeserializeObject<List<FridgeProductDto>>(result.Content.ReadAsStringAsync().Result);
+
+            return View(fridgeProducts);
+        }
+
+        [HttpGet]
         public IActionResult PutProductInFridge()
         {
             return View();
@@ -130,6 +141,38 @@ namespace FridgeManager.ASP.Controllers
             await httpClient.PostAsJsonAsync($"{_host}PutProductInFridge/", fridgeProduct);
 
             ViewData["Message"] = $"Product was put in fridge";
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProductInFridge()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProductInFridge(FridgeProductForUpdateDto fridgeProduct)
+        {
+            using HttpClient httpClient = new();
+            await httpClient.PutAsJsonAsync($"{_host}UpdateProductInFridge/", fridgeProduct);
+
+            ViewData["Message"] = $"Product was updated";
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult DeleteProductFromFridge()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProductFromFridge(Guid id)
+        {
+            using HttpClient httpClient = new();
+            await httpClient.DeleteAsync($"{_host}DeleteProductFromFridge/{id}");
+
+            ViewData["Message"] = $"Product was deleted";
             return View();
         }
 
