@@ -235,7 +235,7 @@ namespace FridgeManager.API.Controllers
         }
 
         /// <summary>
-        /// Searching fridge by letters or words, which fridge name contains
+        /// Searching fridge by letters, which fridge name contains
         /// (additional task #1)
         /// </summary>
         /// <param name="substring"></param>

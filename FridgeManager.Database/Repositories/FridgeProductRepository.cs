@@ -48,7 +48,7 @@ namespace FridgeManager.Database.Repositories
 
             foreach (Fridge fridge in fridges)
             {
-                int count = fridgeProducts.Count(fp => fp.FridgeId.Equals(fridge.Id));
+                int count = fridgeProducts.Where(fp => fp.FridgeId.Equals(fridge.Id)).Sum(fp => fp.Quantity);
 
                 fridgesToReturn.Add(new FridgeWithCountOfProductsDto
                 {

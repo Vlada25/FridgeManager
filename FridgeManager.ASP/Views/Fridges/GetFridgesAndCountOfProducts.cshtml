@@ -1,0 +1,33 @@
+﻿@model List<FridgeWithCountOfProductsDto>
+
+@{
+    ViewData["Title"] = "Fridges";
+}
+
+<div>
+     <h3 class="h3-above-table">Fridges And Count Of Products Inside</h3>
+
+     <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Count Of Products</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fridge in @Model)
+            {
+                <tr>
+                    <td>@fridge.Id</td>
+                    <td>@fridge.FullModelName</td>
+                    <td>@fridge.Year</td>
+                    <td>@fridge.ProductsCount</td>
+                </tr>
+            }
+        </tbody>
+     </table>
+
+     <a class="back-btn" href="/Home/Index">Back</a>
+</div>

@@ -178,6 +178,8 @@ namespace FridgeManager.ASP.Controllers
 
         #endregion
 
+        #region Special queries
+
         // TODO: Error 405 (ChangeNullQuantity)
         [HttpPost]
         public async Task<IActionResult> ChangeNullQuantity()
@@ -187,5 +189,57 @@ namespace FridgeManager.ASP.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult SearchFridgesBySubstring()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchFridgesBySubstring(string substring)
+        {
+            using HttpClient httpClient = new();
+            var result = await httpClient.GetAsync($"{_host}SearchFridgesBySubstring/{substring}");
+
+            var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(result.Content.ReadAsStringAsync().Result);
+
+            return View(fridges);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetYearOfTheMostSpaciousFridge()
+        {
+            using HttpClient httpClient = new();
+            var result = await httpClient.GetAsync($"{_host}GetYearOfTheMostSpaciousFridge");
+
+            ViewData["Message"] = result.Content.ReadAsStringAsync().Result;
+
+            return View("GetSomeSpecialString");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFridgeWhichContainsTheMostKindsOfProducts()
+        {
+            using HttpClient httpClient = new();
+            var result = await httpClient.GetAsync($"{_host}GetFridgeWhichContainsTheMostKindsOfProducts");
+
+            ViewData["Message"] = result.Content.ReadAsStringAsync().Result;
+
+            return View("GetSomeSpecialString");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFridgesAndCountOfProducts()
+        {
+            using HttpClient httpClient = new();
+            var result = await httpClient.GetAsync($"{_host}GetFridgesAndCountOfProducts");
+
+            var fridges = JsonConvert.DeserializeObject<List<FridgeWithCountOfProductsDto>>(result.Content.ReadAsStringAsync().Result);
+
+            return View(fridges);
+        }
+
+        #endregion
     }
 }
