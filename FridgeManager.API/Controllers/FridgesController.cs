@@ -277,6 +277,21 @@ namespace FridgeManager.API.Controllers
 
             return Ok(outStr);
         }
+
+        /// <summary>
+        /// Getting fridge name, model name, year of model and total quantity of products in fridge
+        /// (query set 2(4))
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetFridgesAndCountOfProducts()
+        {
+            var fridges = _repository.FridgeRepository.GetAll(trackChanges: false);
+            var fridgesToReturn = _repository.FridgeProductRepository.GetFridgesAndCountOfProducts(fridges);
+
+            return Ok(fridgesToReturn);
+        }
+
         #endregion
     }
 }

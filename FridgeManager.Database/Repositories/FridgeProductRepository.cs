@@ -1,4 +1,5 @@
 ﻿using FridgeManager.Domain;
+using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -36,9 +37,29 @@ namespace FridgeManager.Database.Repositories
         public void ChangeNullQuantity() =>
             dbContext.Database.ExecuteSqlRaw("EXECUTE dbo.ChangeNullQuantity");
 
-        // TODO: Implement with the stored procedure
         public IEnumerable<FridgeProduct> GetProductsInFridge(Guid fridgeId, bool trackChanges) =>
             GetAllEntities(trackChanges).Where(fp => fp.FridgeId == fridgeId)
             .Include(f => f.Fridge).Include(f => f.Product).ToList();
+
+        public IEnumerable<FridgeWithCountOfProductsDto> GetFridgesAndCountOfProducts(IEnumerable<Fridge> fridges)
+        {
+            List<FridgeWithCountOfProductsDto> fridgesToReturn = new List<FridgeWithCountOfProductsDto>();
+            List<FridgeProduct> fridgeProducts = GetAll(false).ToList();
+
+            foreach (Fridge fridge in fridges)
+            {
+                int count = fridgeProducts.Count(fp => fp.FridgeId.Equals(fridge.Id));
+
+                fridgesToReturn.Add(new FridgeWithCountOfProductsDto
+                {
+                    Id = fridge.Id,
+                    FullModelName = fridge.Name + " " + fridge.Model.Name,
+                    Year = fridge.Model.Year,
+                    ProductsCount = count
+                });
+            }
+
+            return fridgesToReturn;
+        }
     }
 }
