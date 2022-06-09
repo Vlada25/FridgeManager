@@ -23,7 +23,7 @@ namespace FridgeManager.Database.Repositories
             GetByCondition(u => u.Id.Equals(id), trackChanges).SingleOrDefault();
 
         public User GetByLogin(string login, bool trackChanges) =>
-            GetByCondition(u => u.Login.Equals(login), trackChanges).SingleOrDefault();
+            GetByCondition(u => u.UserName.Equals(login), trackChanges).SingleOrDefault();
 
         public void Delete(User model) => DeleteEntity(model);
     }

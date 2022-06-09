@@ -18,7 +18,12 @@ namespace FridgeManager.Domain.Configuration
                 new IdentityRole
                 {
                     Name = "Admin",
-                    NormalizedName = "Administrator"
+                    NormalizedName = "ADMINISTRATOR"
+                },
+                new IdentityRole
+                {
+                    Name = "Manager",
+                    NormalizedName = "MANAGER"
                 }
             );
         }

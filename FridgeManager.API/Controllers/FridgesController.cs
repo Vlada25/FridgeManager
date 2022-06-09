@@ -219,7 +219,8 @@ namespace FridgeManager.API.Controllers
         #region Special queries
 
         /// <summary>
-        /// Change products in fridge with quantity = 0 on default quantity
+        /// Changing quantity of products in fridge on default value 
+        /// where quantity = 0 
         /// (minimal requirements #6)
         /// </summary>
         /// <returns></returns>
@@ -228,10 +229,7 @@ namespace FridgeManager.API.Controllers
         {
             _repository.FridgeProductRepository.ChangeNullQuantity();
 
-            var fridgeProducts = _repository.FridgeProductRepository.GetAll(trackChanges: false);
-            var fridgeProductsDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProducts);
-
-            return Ok(fridgeProductsDto);
+            return Ok("All done!");
         }
 
         /// <summary>

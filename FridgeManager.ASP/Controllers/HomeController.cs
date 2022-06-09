@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.ASP.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -9,6 +11,7 @@ namespace FridgeManager.ASP.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult StartPage()
         {
             return View();

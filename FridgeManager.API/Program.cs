@@ -10,11 +10,12 @@ using FridgeManager.Domain.Models.Authorization;
 using FridgeManager.API.Extensions;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AspNetCoreRateLimit;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.WebHost.UseUrls("http://localhost:5001");
 
-builder.Services.ConfigureRepositoryManager();
+builder.Services.ConfigureDbManagers();
 
 builder.Services.AddControllers(config =>
 {
@@ -28,6 +29,10 @@ builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureSqlContext(builder.Configuration);
+
+builder.Services.AddMemoryCache();
+builder.Services.ConfigureRateLimitingOptions();
+builder.Services.AddHttpContextAccessor();
 
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
@@ -44,35 +49,9 @@ var mappingConfig = new MapperConfiguration(mc =>
 IMapper autoMapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(autoMapper);
 
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
-{
-    x.Events = new JwtBearerEvents
-    {
-        OnTokenValidated = context =>
-        {
-            var userMachine = context.HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
-            var user = userMachine.GetUserAsync(context.HttpContext.User);
-
-            if (user == null)
-                context.Fail("Unauthorized user");
-
-            return Task.CompletedTask;
-        }
-    };
-    x.RequireHttpsMetadata = false;
-    x.SaveToken = true;
-    x.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        //IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
-    };
-});
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
 
 var app = builder.Build();
 
@@ -105,9 +84,11 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.All
 });
 
+app.UseIpRateLimiting();
+
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

@@ -23,6 +23,7 @@ namespace FridgeManager.Domain
 
             //CreateMap<User, UserDto>();
             CreateMap<RegisterUser, User>();
+                //.ForMember();
             CreateMap<LoginUser, User>();
 
             CreateMap<FridgeProduct, FridgeProductDto>()

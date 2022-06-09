@@ -10,7 +10,7 @@ namespace FridgeManager.Domain.Models.Authorization
     public class LoginUser
     {
         [Required(ErrorMessage = "Not specified login")]
-        public string Login { get; set; }
+        public string UserName { get; set; }
 
 
         [Required(ErrorMessage = "Not specified password")]

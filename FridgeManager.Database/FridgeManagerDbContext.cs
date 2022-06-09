@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain
+namespace FridgeManager.Database
 {
     public class FridgeManagerDbContext : IdentityDbContext<User>
     {
@@ -30,8 +30,6 @@ namespace FridgeManager.Domain
             modelBuilder.ApplyConfiguration(new ProductConfig());
             modelBuilder.ApplyConfiguration(new FridgeProductConfig());
             modelBuilder.ApplyConfiguration(new RoleConfig());
-            modelBuilder.ApplyConfiguration(new UserConfig());
         }
     }
 }
-

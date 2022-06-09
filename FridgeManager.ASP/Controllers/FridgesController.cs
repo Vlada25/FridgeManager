@@ -180,14 +180,20 @@ namespace FridgeManager.ASP.Controllers
 
         #region Special queries
 
-        // TODO: Error 405 (ChangeNullQuantity)
+        [HttpGet]
+        public IActionResult ChangeNullQuantity()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> ChangeNullQuantity()
+        public async Task<IActionResult> ChangeNullQuantityAction()
         {
             using HttpClient httpClient = new();
-            await httpClient.PostAsync($"{_host}/ChangeNullQuantity", null);
+            await httpClient.PostAsync($"{_host}/ChangeNullQuantity/", null);
 
-            return View();
+            ViewData["Message"] = "Null values ​​of products are replaced";
+            return View("ChangeNullQuantity");
         }
 
         [HttpGet]

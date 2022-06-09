@@ -3,6 +3,10 @@
 }
 
 <div>
-    <h3>Null values ​​of products are replaced</h3>
+    <h3>Changing quantity of products in fridges on default value where quantity = 0</h3>
+    <form class="getting-form" asp-action="ChangeNullQuantityAction" method="post">
+        <button class="action-btn" type="submit">Change</button>
+    </form> 
+    <h5>@ViewData["Message"]</h5>
     <a class="back-btn" href="/Home/Index">Back</a>
 </div>
