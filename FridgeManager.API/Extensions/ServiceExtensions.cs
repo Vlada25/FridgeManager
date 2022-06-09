@@ -61,6 +61,7 @@ namespace FridgeManager.API.Extensions
 
         public static void ConfigureDbManagers(this IServiceCollection services)
         {
+            services.AddScoped<RoleManager<IdentityRole>>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }

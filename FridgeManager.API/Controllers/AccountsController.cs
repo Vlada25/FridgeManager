@@ -18,15 +18,18 @@ namespace FridgeManager.API.Controllers
         private ILoggerManager _logger;
         private IMapper _mapper;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAuthenticationManager _authManager;
 
         public AccountsController(IAuthenticationManager authManager,
             UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
             ILoggerManager loggerManager,
             IMapper mapper)
         {
             _authManager = authManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _logger = loggerManager;
             _mapper = mapper;
         }
@@ -51,6 +54,17 @@ namespace FridgeManager.API.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
             var user = _mapper.Map<User>(registerUser);
+
+            foreach (var roleName in registerUser.Roles)
+            {
+                var roleResult = await _roleManager.RoleExistsAsync(roleName);
+
+                if (!roleResult)
+                {
+                    return BadRequest($"Role {roleName} is not exist");
+                }
+            }
+
             var result = await _userManager.CreateAsync(user, registerUser.Password);
 
             if (!result.Succeeded)
@@ -61,7 +75,7 @@ namespace FridgeManager.API.Controllers
                 }
                 return BadRequest(ModelState);
             }
-
+            
             await _userManager.AddToRolesAsync(user, registerUser.Roles);
 
             return StatusCode(201);

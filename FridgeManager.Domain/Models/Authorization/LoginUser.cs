@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FridgeManager.Domain.Models.Authorization
 {
+    // TODO: Move to DTO, DTO move to ASP
     public class LoginUser
     {
         [Required(ErrorMessage = "Not specified login")]

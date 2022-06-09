@@ -9,8 +9,8 @@ namespace FridgeManager.Domain.Models.Authorization
 {
     public class RegisterUser
     {
-        //[Required(ErrorMessage = "Not specified full name")]
-        //public string FullName { get; set; }
+        [Required(ErrorMessage = "Not specified full name")]
+        public string FullName { get; set; }
 
         [Required(ErrorMessage = "Not specified user name")]
         public string UserName { get; set; }
@@ -22,11 +22,10 @@ namespace FridgeManager.Domain.Models.Authorization
         [Required(ErrorMessage = "Not specified password")]
         public string Password { get; set; }
 
-        /*
         [Required(ErrorMessage = "Not confirmed password")]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }*/
+        public string ConfirmPassword { get; set; }
 
         public ICollection<string> Roles { get; set; }
     }
