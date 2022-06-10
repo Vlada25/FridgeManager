@@ -27,7 +27,6 @@ namespace FridgeManager.Database
 
         public async Task<string> CreateToken()
         {
-            throw new NotImplementedException();
             var signingCredentials = GetSigningCredentials();
             var claims = await GetClaims();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
@@ -78,6 +77,11 @@ namespace FridgeManager.Database
             );
 
             return tokenOptions;
+        }
+
+        public string GetToken(HttpContent httpContent)
+        {
+            throw new NotImplementedException();
         }
     }
 }

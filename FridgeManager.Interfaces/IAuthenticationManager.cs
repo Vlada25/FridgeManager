@@ -11,5 +11,6 @@ namespace FridgeManager.Interfaces
     {
         Task<bool> ValidateUser(LoginUser loginUser);
         Task<string> CreateToken();
+        string GetToken(HttpContent httpContent);
     }
 }

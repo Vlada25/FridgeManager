@@ -3,6 +3,7 @@ using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.DTO.FridgeModel;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,7 @@ namespace FridgeManager.API.Controllers
         #region CRUD
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAll()
         {
             var models = _repository.FridgeModelRepository.GetAll(trackChanges: false);

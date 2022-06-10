@@ -30,6 +30,22 @@ namespace FridgeManager.API.Controllers
         {
             var fridges = _repository.FridgeRepository.GetAll(trackChanges: false);
             var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
+            /*
+            Dictionary<string, string> requestHeaders = new Dictionary<string, string>();
+
+            Request.Headers.Add("Content-Type", "application/json");
+            Request.Headers.TryGetValue("Content-Type", out var value);
+
+            Request.Headers["Content-Type"] = value + "111";
+            Request.Headers.TryGetValue("Content-Type", out var newValue);
+
+
+            foreach (var header in Request.Headers)
+            {
+                requestHeaders.Add(header.Key, header.Value);
+            }
+
+            return Ok(newValue);*/
 
             return Ok(fridgesDto);
         }
