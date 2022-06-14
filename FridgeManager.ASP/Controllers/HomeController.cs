@@ -13,6 +13,7 @@ namespace FridgeManager.ASP.Controllers
 
         public IActionResult StartPage()
         {
+            Response.Cookies.Delete("X-Access-Token");
             return View();
         }
     }

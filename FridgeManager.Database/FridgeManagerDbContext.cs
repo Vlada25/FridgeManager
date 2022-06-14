@@ -1,6 +1,5 @@
 ﻿using FridgeManager.Domain.Configuration;
 using FridgeManager.Domain.Models;
-using FridgeManager.Domain.Models.Authorization;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;

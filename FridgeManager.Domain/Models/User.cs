@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.Models.Authorization
+namespace FridgeManager.Domain.Models
 {
     public class User : IdentityUser
     {

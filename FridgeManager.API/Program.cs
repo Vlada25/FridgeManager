@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 using Microsoft.IdentityModel.Tokens;
-using FridgeManager.Domain.Models.Authorization;
+using FridgeManager.Domain.Models;
 using FridgeManager.API.Extensions;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

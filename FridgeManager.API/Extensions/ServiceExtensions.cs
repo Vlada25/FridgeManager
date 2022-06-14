@@ -2,7 +2,7 @@
 using AspNetCoreRateLimit;
 using FridgeManager.Database;
 using FridgeManager.Domain;
-using FridgeManager.Domain.Models.Authorization;
+using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using FridgeManager.LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

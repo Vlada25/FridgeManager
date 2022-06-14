@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.Models.Authorization
+namespace FridgeManager.Domain.DTO
 {
     public class RegisterUser
     {

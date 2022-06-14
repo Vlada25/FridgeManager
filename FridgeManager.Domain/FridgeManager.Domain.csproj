@@ -18,8 +18,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\User\" />
-  </ItemGroup>
-
 </Project>

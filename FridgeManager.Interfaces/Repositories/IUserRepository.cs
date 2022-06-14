@@ -1,4 +1,5 @@
-﻿using FridgeManager.Domain.Models.Authorization;
+﻿using FridgeManager.Domain.DTO;
+using FridgeManager.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

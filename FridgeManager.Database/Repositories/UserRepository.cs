@@ -1,5 +1,5 @@
 ﻿using FridgeManager.Domain;
-using FridgeManager.Domain.Models.Authorization;
+using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;

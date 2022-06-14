@@ -4,7 +4,7 @@ using FridgeManager.Domain.DTO.FridgeModel;
 using FridgeManager.Domain.DTO.FridgeProduct;
 using FridgeManager.Domain.DTO.Product;
 using FridgeManager.Domain.Models;
-using FridgeManager.Domain.Models.Authorization;
+using FridgeManager.Domain.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

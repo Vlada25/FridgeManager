@@ -30,7 +30,19 @@
                 document.querySelector('.del-text').textContent = '';
             } 
         }
-        
+
+        let signOutBtn = document.querySelector('.sign-out-btn');
+        let backBtn = document.querySelector('.back-btn');
+        let pathName = document.location.pathname;
+
+        if (pathName == '/' || pathName == '/Accounts/Login' || pathName == '/Accounts/Register' || pathName == '/Home/StartPage') {
+            signOutBtn.style.display = 'none';
+            backBtn.style.right = '30px';
+        }
+        else {
+            signOutBtn.style.display = 'block';
+            backBtn.style.right = '160px';
+        }
     </script>
 </body>
 </html>

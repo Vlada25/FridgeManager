@@ -1,4 +1,5 @@
-﻿using FridgeManager.Domain.Models.Authorization;
+﻿using FridgeManager.Domain.DTO;
+using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

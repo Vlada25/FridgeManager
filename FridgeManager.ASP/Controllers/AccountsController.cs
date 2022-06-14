@@ -1,4 +1,4 @@
-﻿using FridgeManager.Domain.Models.Authorization;
+﻿using FridgeManager.Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.ASP.Controllers
@@ -75,7 +75,5 @@ namespace FridgeManager.ASP.Controllers
             ViewData["Message"] = "Something went wrong!";
             return View();
         }
-
-        // TODO: Implement sign out
     }
 }

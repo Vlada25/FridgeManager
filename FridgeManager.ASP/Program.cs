@@ -1,6 +1,6 @@
 using Flurl.Http.Configuration;
 using FridgeManager.ASP.Extentions;
-using FridgeManager.Domain.Models.Authorization;
+using FridgeManager.Domain.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
