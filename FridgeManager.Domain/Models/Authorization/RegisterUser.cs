@@ -20,6 +20,7 @@ namespace FridgeManager.Domain.Models.Authorization
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Not specified password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Not confirmed password")]
@@ -27,6 +28,7 @@ namespace FridgeManager.Domain.Models.Authorization
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         public ICollection<string> Roles { get; set; }
     }
 }

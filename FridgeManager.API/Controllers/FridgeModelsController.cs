@@ -11,6 +11,7 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class FridgeModelsController : ControllerBase
     {
         private IRepositoryManager _repository;
@@ -27,7 +28,6 @@ namespace FridgeManager.API.Controllers
         #region CRUD
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetAll()
         {
             var models = _repository.FridgeModelRepository.GetAll(trackChanges: false);

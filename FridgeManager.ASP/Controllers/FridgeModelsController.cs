@@ -1,19 +1,32 @@
-﻿using FridgeManager.Domain.DTO.Fridge;
+﻿using Flurl.Http;
+using Flurl.Http.Configuration;
+using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.DTO.FridgeModel;
 using FridgeManager.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace FridgeManager.ASP.Controllers
 {
     [Route("[controller]/[action]/")]
+    [Authorize]
     public class FridgeModelsController : Controller
     {
-        private readonly string _host;
+        private readonly IFlurlClient _flurlClient;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public FridgeModelsController(string host)
+        public FridgeModelsController(string host,
+            IFlurlClientFactory flurlClientFactory,
+            IHttpContextAccessor httpContextAccessor)
         {
-            _host = host + "FridgeModels/";
+            _flurlClient = flurlClientFactory.Get(host + "FridgeModels/");
+            _contextAccessor = httpContextAccessor;
+
+            var token = _contextAccessor.HttpContext.Request.Cookies["X-Access-Token"];
+
+            if (token != null)
+                _flurlClient.WithOAuthBearerToken(token);
         }
 
         #region CRUD
@@ -21,12 +34,9 @@ namespace FridgeManager.ASP.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            using HttpClient http = new();
-            var result = await http.GetAsync(_host + "GetAll");
+            var result = await _flurlClient.Request("GetAll").GetJsonAsync<List<FridgeModel>>();
 
-            var models = JsonConvert.DeserializeObject<List<FridgeModel>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(models);
+            return View(result);
         }
 
         [HttpGet]
@@ -38,12 +48,9 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Get(Guid id)
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}Get/{id}");
+            var result = await _flurlClient.Request($"Get/{id}").GetJsonAsync<FridgeModel>();
 
-            var model = JsonConvert.DeserializeObject<FridgeModel>(await result.Content.ReadAsStringAsync());
-
-            return View(model);
+            return View(result);
         }
 
         [HttpGet]
@@ -56,8 +63,7 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FridgeModelForCreationDto model)
         {
-            using HttpClient httpClient = new();
-            await httpClient.PostAsJsonAsync($"{_host}Create/", model);
+            await _flurlClient.Request("Create/").PostJsonAsync(model);
 
             ViewData["Message"] = $"Model {model.Name} was created";
             return View();
@@ -73,8 +79,7 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(FridgeModelForUpdateDto model)
         {
-            using HttpClient httpClient = new();
-            await httpClient.PutAsJsonAsync($"{_host}Update/", model);
+            await _flurlClient.Request("Update/").PutJsonAsync(model);
 
             ViewData["Message"] = $"Model {model.Name} was updated";
             return View();
@@ -89,8 +94,7 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            using HttpClient httpClient = new();
-            await httpClient.DeleteAsync($"{_host}Delete/{id}");
+            await _flurlClient.Request($"Delete/{id}").DeleteAsync();
 
             ViewData["Message"] = $"Model with id = {id} was deleted";
             return View();
@@ -107,18 +111,18 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> GetFridgesByModel(Guid modelId)
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}GetFridgesByModel/{modelId}/Fridges");
+            try
+            {
+                var result = await _flurlClient.Request($"GetFridgesByModel/{modelId}/Fridges")
+                    .GetJsonAsync<List<FridgeDto>>();
 
-            if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return View(result);
+            }
+            catch
             {
                 ViewData["Message"] = $"Model with id = {modelId} not found";
                 return View();
             }
-
-            var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(fridges);
         }
     }
 }

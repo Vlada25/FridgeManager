@@ -2,6 +2,7 @@
 using FridgeManager.Domain.DTO.Product;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private IRepositoryManager _repository;

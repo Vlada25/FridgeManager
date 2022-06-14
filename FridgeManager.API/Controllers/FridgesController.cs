@@ -3,6 +3,7 @@ using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.DTO.FridgeProduct;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class FridgesController : ControllerBase
     {
         private IRepositoryManager _repository;
@@ -30,22 +32,6 @@ namespace FridgeManager.API.Controllers
         {
             var fridges = _repository.FridgeRepository.GetAll(trackChanges: false);
             var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
-            /*
-            Dictionary<string, string> requestHeaders = new Dictionary<string, string>();
-
-            Request.Headers.Add("Content-Type", "application/json");
-            Request.Headers.TryGetValue("Content-Type", out var value);
-
-            Request.Headers["Content-Type"] = value + "111";
-            Request.Headers.TryGetValue("Content-Type", out var newValue);
-
-
-            foreach (var header in Request.Headers)
-            {
-                requestHeaders.Add(header.Key, header.Value);
-            }
-
-            return Ok(newValue);*/
 
             return Ok(fridgesDto);
         }

@@ -1,4 +1,5 @@
-﻿using AspNetCoreRateLimit;
+﻿
+using AspNetCoreRateLimit;
 using FridgeManager.Database;
 using FridgeManager.Domain;
 using FridgeManager.Domain.Models.Authorization;

@@ -78,10 +78,5 @@ namespace FridgeManager.Database
 
             return tokenOptions;
         }
-
-        public string GetToken(HttpContent httpContent)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

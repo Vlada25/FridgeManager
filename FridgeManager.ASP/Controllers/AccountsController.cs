@@ -39,6 +39,12 @@ namespace FridgeManager.ASP.Controllers
 
             if (result.IsSuccessStatusCode)
             {
+                var token = result.Content.ReadAsStringAsync().Result;
+                Response.Cookies.Append("X-Access-Token", token, new CookieOptions
+                {
+                    MaxAge = TimeSpan.FromMinutes(30)
+                });
+
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
 
@@ -46,10 +52,13 @@ namespace FridgeManager.ASP.Controllers
             return View();
         }
 
+        // TODO: Add roles
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUser registerUser)
         {
+            registerUser.Roles = new List<string>();
+
             if (!ModelState.IsValid)
             {
                 return View();
@@ -66,5 +75,7 @@ namespace FridgeManager.ASP.Controllers
             ViewData["Message"] = "Something went wrong!";
             return View();
         }
+
+        // TODO: Implement sign out
     }
 }

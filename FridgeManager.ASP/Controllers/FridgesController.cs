@@ -1,5 +1,8 @@
-﻿using FridgeManager.Domain.DTO.Fridge;
+﻿using Flurl.Http;
+using Flurl.Http.Configuration;
+using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.DTO.FridgeProduct;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Web.Administration;
 using Newtonsoft.Json;
@@ -7,13 +10,23 @@ using Newtonsoft.Json;
 namespace FridgeManager.ASP.Controllers
 {
     [Route("[controller]/[action]/")]
+    [Authorize]
     public class FridgesController : Controller
     {
-        private readonly string _host;
+        private readonly IFlurlClient _flurlClient;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public FridgesController(string host)
+        public FridgesController(string host, 
+            IFlurlClientFactory flurlClientFactory,
+            IHttpContextAccessor httpContextAccessor)
         {
-            _host = host + "Fridges/";
+            _flurlClient = flurlClientFactory.Get(host + "Fridges/");
+            _contextAccessor = httpContextAccessor;
+
+            var token = _contextAccessor.HttpContext.Request.Cookies["X-Access-Token"];
+
+            if (token != null)
+                _flurlClient.WithOAuthBearerToken(token);
         }
 
         #region CRUD
@@ -21,12 +34,9 @@ namespace FridgeManager.ASP.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync(_host + "GetAll");
+            var result = await _flurlClient.Request("GetAll").GetJsonAsync<List<FridgeDto>>();
 
-            var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(fridges);
+            return View(result);
         }
 
         [HttpGet]
@@ -38,12 +48,9 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Get(Guid id)
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}Get/{id}");
+            var result = await _flurlClient.Request($"Get/{id}").GetJsonAsync<FridgeDto>();
 
-            var fridge = JsonConvert.DeserializeObject<FridgeDto>(await result.Content.ReadAsStringAsync());
-
-            return View(fridge);
+            return View(result);
         }
 
         [HttpGet]
@@ -56,8 +63,7 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FridgeForCreationDto fridge)
         {
-            using HttpClient httpClient = new();
-            await httpClient.PostAsJsonAsync($"{_host}Create/", fridge);
+            await _flurlClient.Request("Create/").PostJsonAsync(fridge);
 
             ViewData["Message"] = $"Fridge {fridge.Name} was created";
             return View();
@@ -73,8 +79,7 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(FridgeForUpdateDto fridge)
         {
-            using HttpClient httpClient = new();
-            await httpClient.PutAsJsonAsync($"{_host}Update/", fridge);
+            await _flurlClient.Request("Update/").PutJsonAsync(fridge);
 
             ViewData["Message"] = $"Fridge {fridge.Name} was updated";
             return View();
@@ -89,8 +94,7 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            using HttpClient httpClient = new();
-            await httpClient.DeleteAsync($"{_host}Delete/{id}");
+            await _flurlClient.Request($"Delete/{id}").DeleteAsync();
 
             ViewData["Message"] = $"Fridge with id = {id} was deleted";
             return View();
@@ -109,23 +113,17 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> GetProductsInFridge(Guid id)
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}GetProductsInFridge/{id}");
+            var result = await _flurlClient.Request($"GetProductsInFridge/{id}").GetJsonAsync<List<FridgeProductDto>>();
 
-            var fridgeProducts = JsonConvert.DeserializeObject<List<FridgeProductDto>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(fridgeProducts);
+            return View(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProductsInAllFridges()
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync(_host + "GetAllProductsInAllFridges");
+            var result = await _flurlClient.Request("GetAllProductsInAllFridges").GetJsonAsync<List<FridgeProductDto>>();
 
-            var fridgeProducts = JsonConvert.DeserializeObject<List<FridgeProductDto>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(fridgeProducts);
+            return View(result);
         }
 
         [HttpGet]
@@ -137,8 +135,7 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> PutProductInFridge(FridgeProductForCreationDto fridgeProduct)
         {
-            using HttpClient httpClient = new();
-            await httpClient.PostAsJsonAsync($"{_host}PutProductInFridge/", fridgeProduct);
+            await _flurlClient.Request("PutProductInFridge/").PostJsonAsync(fridgeProduct);
 
             ViewData["Message"] = $"Product was put in fridge";
             return View();
@@ -153,8 +150,7 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProductInFridge(FridgeProductForUpdateDto fridgeProduct)
         {
-            using HttpClient httpClient = new();
-            await httpClient.PutAsJsonAsync($"{_host}UpdateProductInFridge/", fridgeProduct);
+            await _flurlClient.Request("UpdateProductInFridge/").PutJsonAsync(fridgeProduct);
 
             ViewData["Message"] = $"Product was updated";
             return View();
@@ -169,8 +165,7 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteProductFromFridge(Guid id)
         {
-            using HttpClient httpClient = new();
-            await httpClient.DeleteAsync($"{_host}DeleteProductFromFridge/{id}");
+            await _flurlClient.Request($"DeleteProductFromFridge/{id}").DeleteAsync();
 
             ViewData["Message"] = $"Product was deleted";
             return View();
@@ -189,8 +184,7 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeNullQuantityAction()
         {
-            using HttpClient httpClient = new();
-            await httpClient.PostAsync($"{_host}/ChangeNullQuantity/", null);
+            await _flurlClient.Request($"ChangeNullQuantity/").PostAsync();
 
             ViewData["Message"] = "Null values ​​of products are replaced";
             return View("ChangeNullQuantity");
@@ -205,45 +199,36 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchFridgesBySubstring(string substring)
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}SearchFridgesBySubstring/{substring}");
+            var result = await _flurlClient.Request($"SearchFridgesBySubstring/{substring}").GetJsonAsync<List<FridgeDto>>();
 
-            var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(fridges);
+            return View(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetYearOfTheMostSpaciousFridge()
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}GetYearOfTheMostSpaciousFridge");
+            var result = await _flurlClient.Request($"GetYearOfTheMostSpaciousFridge").GetStringAsync();
 
-            ViewData["Message"] = result.Content.ReadAsStringAsync().Result;
-
+            ViewData["Message"] = result;
             return View("GetSomeSpecialString");
         }
 
         [HttpGet]
         public async Task<IActionResult> GetFridgeWhichContainsTheMostKindsOfProducts()
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}GetFridgeWhichContainsTheMostKindsOfProducts");
+            var result = await _flurlClient.Request($"GetFridgeWhichContainsTheMostKindsOfProducts").GetStringAsync();
 
-            ViewData["Message"] = result.Content.ReadAsStringAsync().Result;
-
+            ViewData["Message"] = result;
             return View("GetSomeSpecialString");
         }
 
         [HttpGet]
         public async Task<IActionResult> GetFridgesAndCountOfProducts()
         {
-            using HttpClient httpClient = new();
-            var result = await httpClient.GetAsync($"{_host}GetFridgesAndCountOfProducts");
+            var result = await _flurlClient.Request($"GetFridgesAndCountOfProducts")
+                .GetJsonAsync<List<FridgeWithCountOfProductsDto>>();
 
-            var fridges = JsonConvert.DeserializeObject<List<FridgeWithCountOfProductsDto>>(result.Content.ReadAsStringAsync().Result);
-
-            return View(fridges);
+            return View(result);
         }
 
         #endregion

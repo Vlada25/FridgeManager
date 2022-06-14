@@ -12,6 +12,14 @@
     }
     <form class="creation-form" method="post" asp-action="Register">
         <div class="field-container">
+            <label asp-for="FullName"></label>
+            <div>
+                <input asp-for="FullName"/>
+                <span class="error-mes-span" asp-validation-for="FullName"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
             <label asp-for="UserName">Login</label>
             <div>
                 <input asp-for="UserName"/>
@@ -32,6 +40,22 @@
             <div>
                 <input asp-for="Password"/>
                 <span class="error-mes-span" asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="ConfirmPassword"></label>
+            <div>
+                <input asp-for="ConfirmPassword"/>
+                <span class="error-mes-span" asp-validation-for="ConfirmPassword"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Roles">Role</label>
+            <div>
+                <input asp-for="Roles"/>
+                <span class="error-mes-span" asp-validation-for="Roles"></span>
             </div>
         </div>
 

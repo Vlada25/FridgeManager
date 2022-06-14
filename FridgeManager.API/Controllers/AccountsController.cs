@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using FridgeManager.Domain.Models.Authorization;
 using FridgeManager.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace FridgeManager.API.Controllers
 {
@@ -47,7 +42,10 @@ namespace FridgeManager.API.Controllers
                 _logger.LogWarn("Authentication failed. Wrong user name or password.");
                 return Unauthorized();
             }
-            return Ok(new { Token = await _authManager.CreateToken() });
+
+            string token = await _authManager.CreateToken();
+
+            return Ok(token);
         }
 
         [HttpPost]
@@ -75,7 +73,7 @@ namespace FridgeManager.API.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            
+
             await _userManager.AddToRolesAsync(user, registerUser.Roles);
 
             return StatusCode(201);

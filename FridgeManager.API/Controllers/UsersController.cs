@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FridgeManager.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,8 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
+    // TODO: Implement user controller
     public class UsersController : ControllerBase
     {
         private IRepositoryManager _repository;
