@@ -71,9 +71,16 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductForCreationDto product)
         {
-            await _flurlClient.Request("Create/").PostJsonAsync(product);
+            try
+            {
+                await _flurlClient.Request("Create/").PostJsonAsync(product);
 
-            ViewData["Message"] = $"Product {product.Name} was created";
+                ViewData["Message"] = $"Product {product.Name} was created";
+            }
+            catch
+            {
+                ViewData["Message"] = null;
+            }
             return View();
         }
 
@@ -87,9 +94,16 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ProductForUpdateDto product)
         {
-            await _flurlClient.Request("Update/").PutJsonAsync(product);
+            try
+            {
+                await _flurlClient.Request("Update/").PutJsonAsync(product);
 
-            ViewData["Message"] = $"Product {product.Name} was updated";
+                ViewData["Message"] = $"Product {product.Name} was updated";
+            }
+            catch
+            {
+                ViewData["Message"] = null;
+            }
             return View();
         }
 
@@ -102,9 +116,16 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _flurlClient.Request($"Delete/{id}").DeleteAsync();
+            try
+            {
+                await _flurlClient.Request($"Delete/{id}").DeleteAsync();
 
-            ViewData["Message"] = $"Product with id = {id} was deleted";
+                ViewData["Message"] = $"Product with id = {id} was deleted";
+            }
+            catch
+            {
+                ViewData["Message"] = "Product not found!";
+            }
             return View();
         }
 

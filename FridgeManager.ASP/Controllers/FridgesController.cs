@@ -72,9 +72,16 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FridgeForCreationDto fridge)
         {
-            await _flurlClient.Request("Create/").PostJsonAsync(fridge);
+            try
+            {
+                await _flurlClient.Request("Create/").PostJsonAsync(fridge);
 
-            ViewData["Message"] = $"Fridge {fridge.Name} was created";
+                ViewData["Message"] = $"Fridge {fridge.Name} was created";
+            }
+            catch
+            {
+                ViewData["Message"] = null;
+            }
             return View();
         }
 
@@ -88,9 +95,16 @@ namespace FridgeManager.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(FridgeForUpdateDto fridge)
         {
-            await _flurlClient.Request("Update/").PutJsonAsync(fridge);
+            try
+            {
+                await _flurlClient.Request("Update/").PostJsonAsync(fridge);
 
-            ViewData["Message"] = $"Fridge {fridge.Name} was updated";
+                ViewData["Message"] = $"Fridge {fridge.Name} was updated";
+            }
+            catch
+            {
+                ViewData["Message"] = null;
+            }
             return View();
         }
 
@@ -103,9 +117,16 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _flurlClient.Request($"Delete/{id}").DeleteAsync();
+            try
+            {
+                await _flurlClient.Request($"Delete/{id}").DeleteAsync();
 
-            ViewData["Message"] = $"Fridge with id = {id} was deleted";
+                ViewData["Message"] = $"Fridge with id = {id} was deleted";
+            }
+            catch
+            {
+                ViewData["Message"] = "Fridge not found!";
+            }
             return View();
         }
 
@@ -153,9 +174,16 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> PutProductInFridge(FridgeProductForCreationDto fridgeProduct)
         {
-            await _flurlClient.Request("PutProductInFridge/").PostJsonAsync(fridgeProduct);
+            try
+            {
+                await _flurlClient.Request("PutProductInFridge/").PostJsonAsync(fridgeProduct);
 
-            ViewData["Message"] = $"Product was put in fridge";
+                ViewData["Message"] = $"Product was put in fridge";
+            }
+            catch
+            {
+                ViewData["Message"] = null;
+            }
             return View();
         }
 
@@ -168,9 +196,16 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProductInFridge(FridgeProductForUpdateDto fridgeProduct)
         {
-            await _flurlClient.Request("UpdateProductInFridge/").PutJsonAsync(fridgeProduct);
+            try
+            {
+                await _flurlClient.Request("UpdateProductInFridge/").PostJsonAsync(fridgeProduct);
 
-            ViewData["Message"] = $"Product was updated";
+                ViewData["Message"] = $"Product was updated";
+            }
+            catch
+            {
+                ViewData["Message"] = null;
+            }
             return View();
         }
 
@@ -183,9 +218,16 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteProductFromFridge(Guid id)
         {
-            await _flurlClient.Request($"DeleteProductFromFridge/{id}").DeleteAsync();
+            try
+            {
+                await _flurlClient.Request($"DeleteProductFromFridge/{id}").DeleteAsync();
 
-            ViewData["Message"] = $"Product was deleted";
+                ViewData["Message"] = $"Product was deleted";
+            }
+            catch
+            {
+                ViewData["Message"] = "Fridge not found!";
+            }
             return View();
         }
 

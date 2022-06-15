@@ -26,12 +26,18 @@
 
         <div class="field-container">
             <label asp-for="OwnerName">Owner Name</label>
-            <input asp-for="OwnerName"/>
+            <div>
+                <input asp-for="OwnerName"/>
+                <span class="error-mes-span" asp-validation-for="OwnerName"></span>
+            </div>
         </div>
 
         <div class="field-container">
             <label asp-for="ModelId">Model Id</label>
-            <input asp-for="ModelId"/>
+            <div>
+                <input asp-for="ModelId"/>
+                <span class="error-mes-span" asp-validation-for="ModelId"></span>
+            </div>
         </div>
 
         <div class="action-btn-container">

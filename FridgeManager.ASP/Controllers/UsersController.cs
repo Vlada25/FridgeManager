@@ -20,6 +20,7 @@ namespace FridgeManager.ASP.Controllers
             _flurlClient = flurlClientFactory.Get(host + "Users/");
             _contextAccessor = httpContextAccessor;
 
+            // TODO: Add to appsettings.json
             var token = _contextAccessor.HttpContext.Request.Cookies["X-Access-Token"];
 
             if (token != null)

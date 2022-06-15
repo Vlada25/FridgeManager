@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FridgeManager.Domain.DTO.User
 {
-    // TODO: Move to DTO, DTO move to ASP
+    // TODO: Move DTO to other project
     public class LoginUser
     {
         [Required(ErrorMessage = "Not specified login")]
