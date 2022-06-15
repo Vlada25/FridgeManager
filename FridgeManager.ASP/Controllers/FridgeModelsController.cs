@@ -48,9 +48,18 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _flurlClient.Request($"Get/{id}").GetJsonAsync<FridgeModel>();
+            try
+            {
+                var result = await _flurlClient.Request($"Get/{id}").GetJsonAsync<FridgeModel>();
 
-            return View(result);
+                ViewData["Message"] = null;
+                return View(result);
+            }
+            catch
+            {
+                ViewData["Message"] = "Model not found!";
+                return View();
+            }
         }
 
         [HttpGet]

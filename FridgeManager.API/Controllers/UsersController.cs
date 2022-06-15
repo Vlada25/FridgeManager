@@ -12,9 +12,9 @@ namespace FridgeManager.API.Controllers
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
-        private IRepositoryManager _repository;
-        private ILoggerManager _logger;
-        private IMapper _mapper;
+        private readonly IRepositoryManager _repository;
+        private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
         public UsersController(IRepositoryManager repositoryManager,
             ILoggerManager loggerManager,

@@ -48,9 +48,18 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _flurlClient.Request($"Get/{id}").GetJsonAsync<FridgeDto>();
+            try
+            {
+                var result = await _flurlClient.Request($"Get/{id}").GetJsonAsync<FridgeDto>();
 
-            return View(result);
+                ViewData["Message"] = null;
+                return View(result);
+            }
+            catch
+            {
+                ViewData["Message"] = "Fridge not found!";
+                return View();
+            }
         }
 
         [HttpGet]
@@ -113,9 +122,18 @@ namespace FridgeManager.ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> GetProductsInFridge(Guid id)
         {
-            var result = await _flurlClient.Request($"GetProductsInFridge/{id}").GetJsonAsync<List<FridgeProductDto>>();
+            try
+            {
+                var result = await _flurlClient.Request($"GetProductsInFridge/{id}").GetJsonAsync<List<FridgeProductDto>>();
 
-            return View(result);
+                ViewData["Message"] = null;
+                return View(result);
+            }
+            catch
+            {
+                ViewData["Message"] = "Fridge not found!";
+                return View();
+            }
         }
 
         [HttpGet]

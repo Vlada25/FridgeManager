@@ -19,9 +19,7 @@
 
     @if (@Model != null)
     {
-        if (@Model.Name != null)
-        {
-            <table class="table">
+       <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -36,11 +34,11 @@
                     <td>@Model.Year</td>
                 </tr>
             </tbody>
-            </table>
-        }
-        else
-        {
-            <h5 style="color: red">Model not found!</h5>
-        }
+       </table>
+    }
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5 style="color: red">@ViewData["Message"]</h5>
     }
 </div>

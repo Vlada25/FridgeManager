@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FridgeManager.Domain.DTO;
+using FridgeManager.Domain.DTO.User;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -11,8 +11,8 @@ namespace FridgeManager.API.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private ILoggerManager _logger;
-        private IMapper _mapper;
+        private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAuthenticationManager _authManager;

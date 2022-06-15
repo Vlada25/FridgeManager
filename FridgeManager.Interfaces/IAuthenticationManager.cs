@@ -1,4 +1,4 @@
-﻿using FridgeManager.Domain.DTO;
+﻿using FridgeManager.Domain.DTO.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

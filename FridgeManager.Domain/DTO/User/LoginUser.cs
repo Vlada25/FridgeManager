@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.DTO
+namespace FridgeManager.Domain.DTO.User
 {
     // TODO: Move to DTO, DTO move to ASP
     public class LoginUser

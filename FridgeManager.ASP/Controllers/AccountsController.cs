@@ -1,4 +1,4 @@
-﻿using FridgeManager.Domain.DTO;
+﻿using FridgeManager.Domain.DTO.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.ASP.Controllers

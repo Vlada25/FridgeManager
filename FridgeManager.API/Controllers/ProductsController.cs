@@ -13,9 +13,9 @@ namespace FridgeManager.API.Controllers
     [Authorize]
     public class ProductsController : ControllerBase
     {
-        private IRepositoryManager _repository;
-        private ILoggerManager _logger;
-        private IMapper _mapper;
+        private readonly IRepositoryManager _repository;
+        private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
         public ProductsController(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
         {

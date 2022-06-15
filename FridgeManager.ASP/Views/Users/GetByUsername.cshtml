@@ -1,0 +1,46 @@
+﻿@model UserDto
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div>
+    <h3>Getting User</h3>
+
+    <form class="getting-form" asp-action="GetByUsername" method="post">
+        <label>UserName:</label>
+        <input type="text" name="login"/>
+        <br />
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit">Get</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>  
+
+    @if (@Model != null)
+    {
+        if (@Model.UserName != null)
+        {
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.FullName</td>
+                    <td>@Model.UserName</td>
+                    <td>@Model.Email</td>
+                </tr>
+            </tbody>
+            </table>
+        }
+        else
+        {
+            <h5 style="color: red">Model not found!</h5>
+        }
+    }
+</div>

@@ -19,9 +19,7 @@
 
     @if (@Model != null)
     {
-        if (Model.OwnerName != null)
-        {
-            <table class="table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -36,11 +34,11 @@
                     <td>@Model.OwnerName</td>
                 </tr>
             </tbody>
-            </table>
-        }
-        else 
-        {
-            <h5 style="color: red">Fridge not found!</h5>
-        }
+        </table>
+    }
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5 style="color: red">@ViewData["Message"]</h5>
     }
 </div>
