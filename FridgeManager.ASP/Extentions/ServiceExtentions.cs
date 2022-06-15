@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using FridgeManager.ASP.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -6,14 +7,18 @@ namespace FridgeManager.ASP.Extentions
 {
     public static class ServiceExtentions
     {
-        public static void ConfigureHost(this IServiceCollection services,
+        public static void ConfigureConstants(this IServiceCollection services,
             IConfiguration configuration)
         {
             services.AddControllers();
 
-            var host = configuration.GetValue<string>("Host");
+            var constance = new Constants
+            {
+                Host = configuration.GetValue<string>("Host"),
+                TokenKey = configuration.GetValue<string>("TokenKey")
+            };
 
-            services.AddSingleton(host);
+            services.AddSingleton(constance);
         }
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)

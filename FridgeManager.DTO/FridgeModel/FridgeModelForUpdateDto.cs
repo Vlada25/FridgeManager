@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.DTO.FridgeModel
+namespace FridgeManager.DTO.FridgeModel
 {
     public class FridgeModelForUpdateDto
     {

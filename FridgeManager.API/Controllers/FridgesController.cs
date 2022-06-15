@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using FridgeManager.Domain.DTO.Fridge;
-using FridgeManager.Domain.DTO.FridgeProduct;
+using FridgeManager.DTO.Fridge;
+using FridgeManager.DTO.FridgeProduct;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authorization;

@@ -1,6 +1,7 @@
 using Flurl.Http.Configuration;
 using FridgeManager.ASP.Extentions;
-using FridgeManager.Domain.DTO;
+using FridgeManager.ASP.Services;
+using FridgeManager.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
-builder.Services.ConfigureHost(builder.Configuration);
+builder.Services.ConfigureConstants(builder.Configuration);
 
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

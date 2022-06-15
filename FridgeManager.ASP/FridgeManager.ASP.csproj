@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FridgeManager.Domain\FridgeManager.Domain.csproj" />
+    <ProjectReference Include="..\FridgeManager.DTO\FridgeManager.DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

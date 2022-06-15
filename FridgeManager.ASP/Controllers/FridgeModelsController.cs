@@ -1,11 +1,12 @@
 ﻿using Flurl.Http;
 using Flurl.Http.Configuration;
-using FridgeManager.Domain.DTO.Fridge;
-using FridgeManager.Domain.DTO.FridgeModel;
+using FridgeManager.DTO.Fridge;
+using FridgeManager.DTO.FridgeModel;
 using FridgeManager.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using FridgeManager.ASP.Services;
 
 namespace FridgeManager.ASP.Controllers
 {
@@ -16,14 +17,14 @@ namespace FridgeManager.ASP.Controllers
         private readonly IFlurlClient _flurlClient;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public FridgeModelsController(string host,
+        public FridgeModelsController(Constants constants,
             IFlurlClientFactory flurlClientFactory,
             IHttpContextAccessor httpContextAccessor)
         {
-            _flurlClient = flurlClientFactory.Get(host + "FridgeModels/");
+            _flurlClient = flurlClientFactory.Get(constants.Host + "FridgeModels/");
             _contextAccessor = httpContextAccessor;
 
-            var token = _contextAccessor.HttpContext.Request.Cookies["X-Access-Token"];
+            var token = _contextAccessor.HttpContext.Request.Cookies[constants.TokenKey];
 
             if (token != null)
                 _flurlClient.WithOAuthBearerToken(token);

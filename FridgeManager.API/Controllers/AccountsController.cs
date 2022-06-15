@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FridgeManager.Domain.DTO.User;
+using FridgeManager.DTO.User;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Identity;

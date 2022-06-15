@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.DTO.Fridge
+namespace FridgeManager.DTO.Fridge
 {
-    public class FridgeForCreationDto
+    public class FridgeForUpdateDto
     {
+        [Required(ErrorMessage = "Id is not specified")]
+        public Guid Id { get; set; }
+
         [Required(ErrorMessage = "The name of the fridge is not specified")]
         [MaxLength(30, ErrorMessage = "Maximum length for the Name is 30 characters.")]
         public string Name { get; set; }

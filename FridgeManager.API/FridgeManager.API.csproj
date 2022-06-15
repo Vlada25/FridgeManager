@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FridgeManager.Database\FridgeManager.Database.csproj" />
+    <ProjectReference Include="..\FridgeManager.DTO\FridgeManager.DTO.csproj" />
     <ProjectReference Include="..\FridgeManager.Interfaces\FridgeManager.Interfaces.csproj" />
     <ProjectReference Include="..\FridgeManager.LoggerService\FridgeManager.LoggerService.csproj" />
   </ItemGroup>

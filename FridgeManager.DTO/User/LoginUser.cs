@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.DTO.User
+namespace FridgeManager.DTO.User
 {
-    // TODO: Move DTO to other project
     public class LoginUser
     {
         [Required(ErrorMessage = "Not specified login")]

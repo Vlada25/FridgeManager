@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FridgeManager.Domain.DTO.User
+namespace FridgeManager.DTO.User
 {
     public class UserDto
     {

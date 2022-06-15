@@ -1,4 +1,4 @@
-﻿using FridgeManager.Domain.DTO.Fridge;
+﻿using FridgeManager.DTO.Fridge;
 using FridgeManager.Domain.Models;
 using System;
 using System.Collections.Generic;

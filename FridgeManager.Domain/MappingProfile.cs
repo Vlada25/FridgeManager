@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using FridgeManager.Domain.DTO.Fridge;
-using FridgeManager.Domain.DTO.FridgeModel;
-using FridgeManager.Domain.DTO.FridgeProduct;
-using FridgeManager.Domain.DTO.Product;
+using FridgeManager.DTO.Fridge;
+using FridgeManager.DTO.FridgeModel;
+using FridgeManager.DTO.FridgeProduct;
+using FridgeManager.DTO.Product;
 using FridgeManager.Domain.Models;
-using FridgeManager.Domain.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FridgeManager.Domain.DTO.User;
+using FridgeManager.DTO.User;
 
 namespace FridgeManager.Domain
 {

@@ -1,4 +1,5 @@
-﻿using FridgeManager.Domain.DTO.User;
+﻿using FridgeManager.ASP.Services;
+using FridgeManager.DTO.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.ASP.Controllers
@@ -7,10 +8,12 @@ namespace FridgeManager.ASP.Controllers
     public class AccountsController : Controller
     {
         private readonly string _host;
+        private readonly string _tokenKey;
 
-        public AccountsController(string host)
+        public AccountsController(Constants constants)
         {
-            _host = host + "Accounts/";
+            _host = constants.Host + "Accounts/";
+            _tokenKey = constants.TokenKey;
         }
 
         [HttpGet]
@@ -40,7 +43,7 @@ namespace FridgeManager.ASP.Controllers
             if (result.IsSuccessStatusCode)
             {
                 var token = result.Content.ReadAsStringAsync().Result;
-                Response.Cookies.Append("X-Access-Token", token, new CookieOptions
+                Response.Cookies.Append(_tokenKey, token, new CookieOptions
                 {
                     MaxAge = TimeSpan.FromMinutes(30)
                 });
@@ -52,13 +55,11 @@ namespace FridgeManager.ASP.Controllers
             return View();
         }
 
-        // TODO: Add roles
+        // TODO: Dropdown, multiselect
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUser registerUser)
         {
-            registerUser.Roles = new List<string>();
-
             if (!ModelState.IsValid)
             {
                 return View();
