@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FridgeManager.Domain.DTO.User;
 
 namespace FridgeManager.Domain
 {
@@ -21,9 +22,8 @@ namespace FridgeManager.Domain
                 .ForMember(f => f.FullModelName,
                     opt => opt.MapFrom(x => string.Join(' ', x.Name, x.Model.Name)));
 
-            //CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>();
             CreateMap<RegisterUser, User>();
-                //.ForMember();
             CreateMap<LoginUser, User>();
 
             CreateMap<FridgeProduct, FridgeProductDto>()

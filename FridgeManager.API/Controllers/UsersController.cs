@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FridgeManager.Domain.DTO.User;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,8 +9,7 @@ namespace FridgeManager.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
-    // TODO: Implement user controller
+    [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
         private IRepositoryManager _repository;
@@ -29,8 +29,9 @@ namespace FridgeManager.API.Controllers
         public IActionResult GetAll()
         {
             var users = _repository.UserRepository.GetAll(trackChanges: false);
+            var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            return Ok(users);
+            return Ok(usersDto);
         }
 
         [HttpGet("{login}")]
@@ -45,7 +46,8 @@ namespace FridgeManager.API.Controllers
             }
             else
             {
-                return Ok(user);
+                var userDto = _mapper.Map<UserDto>(user);
+                return Ok(userDto);
             }
         }
     }
