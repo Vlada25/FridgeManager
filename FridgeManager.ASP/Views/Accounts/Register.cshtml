@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Registration";
+    var roles = Model.Roles
+       .Select(i => new SelectListItem() { Text = i, Value = i })
+       .ToList();
 }
 
 <div>
@@ -14,7 +17,7 @@
         <div class="field-container">
             <label asp-for="FullName"></label>
             <div>
-                <input asp-for="FullName"/>
+                <input class="input-props" asp-for="FullName"/>
                 <span class="error-mes-span" asp-validation-for="FullName"></span>
             </div>
         </div>
@@ -22,7 +25,7 @@
         <div class="field-container">
             <label asp-for="UserName">Login</label>
             <div>
-                <input asp-for="UserName"/>
+                <input class="input-props" asp-for="UserName"/>
                 <span class="error-mes-span" asp-validation-for="UserName"></span>
             </div>
         </div>
@@ -30,7 +33,7 @@
         <div class="field-container">
             <label asp-for="Email"></label>
             <div>
-                <input asp-for="Email"/>
+                <input class="input-props" asp-for="Email"/>
                 <span class="error-mes-span" asp-validation-for="Email"></span>
             </div>
         </div>
@@ -38,7 +41,7 @@
         <div class="field-container">
             <label asp-for="Password"></label>
             <div>
-                <input asp-for="Password"/>
+                <input class="input-props" asp-for="Password"/>
                 <span class="error-mes-span" asp-validation-for="Password"></span>
             </div>
         </div>
@@ -46,15 +49,15 @@
         <div class="field-container">
             <label asp-for="ConfirmPassword"></label>
             <div>
-                <input asp-for="ConfirmPassword"/>
+                <input class="input-props" asp-for="ConfirmPassword"/>
                 <span class="error-mes-span" asp-validation-for="ConfirmPassword"></span>
             </div>
         </div>
 
         <div class="field-container">
-            <label asp-for="Roles">Role</label>
+            <label asp-for="Roles"></label>
             <div>
-                <input asp-for="Roles"/>
+                <select class="select-props" multiple="multiple" size="3" asp-for="Roles" asp-items="@roles"></select>
                 <span class="error-mes-span" asp-validation-for="Roles"></span>
             </div>
         </div>

@@ -25,7 +25,12 @@ namespace FridgeManager.ASP.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var roles = new string[] {"Admin", "Manager" };
+
+            return View(new RegisterUser()
+            {
+                Roles = roles.ToList()
+            });
         }
 
         [HttpPost]

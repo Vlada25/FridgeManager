@@ -11,7 +11,7 @@
         <div class="field-container">
             <label asp-for="Id"></label>
             <div>
-                <input asp-for="Id"/>
+                <input class="input-props" asp-for="Id"/>
                 <span class="error-mes-span" asp-validation-for="Id"></span>
             </div>
         </div>
@@ -19,13 +19,13 @@
         <div class="field-container">
             <label asp-for="Name"></label>
             <div>
-                <input asp-for="Name"/>
+                <input class="input-props" asp-for="Name"/>
                 <span class="error-mes-span" asp-validation-for="Name"></span>
             </div>
         </div>
 
         <div class="field-container">
-            <label asp-for="DefaultQuantity"></label>
+            <label class="input-props" asp-for="DefaultQuantity"></label>
             <div>
                 <input asp-for="DefaultQuantity"/>
                 <span class="error-mes-span" asp-validation-for="DefaultQuantity"></span>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="field-container">
-            <label asp-for="ImageSource">Image Source</label>
+            <label class="input-props" asp-for="ImageSource">Image Source</label>
             <input asp-for="ImageSource"/>
         </div>
 
