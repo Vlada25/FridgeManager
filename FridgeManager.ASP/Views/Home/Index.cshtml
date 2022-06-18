@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="menu-container">
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">All Entities</li>
+        <li><a href="/Fridges/GetAll">Fridges</a></li>
+        <li><a href="/FridgeModels/GetAll">Models</a></li>
+        <li><a href="/Products/GetAll">Products</a></li>
+        <li><a href="/Fridges/GetAllProductsInAllFridges">All Products In All Fridges</a></li>
+    </ul>
+    
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Entities By Id</li>
+        <li><a href="/Fridges/Get">Fridge</a></li>
+        <li><a href="/FridgeModels/Get">Model</a></li>
+        <li><a href="/Products/Get">Product</a></li>
+        <li><a href="/Fridges/GetProductsInFridge">Products In Fridge</a></li>
+    </ul>
+    
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Create Entity</li>
+        <li><a href="/Fridges/Create">Fridge</a></li>
+        <li><a href="/FridgeModels/Create">Model</a></li>
+        <li><a href="/Products/Create">Product</a></li>
+        <li><a href="/Fridges/PutProductInFridge">Product In Fridge</a></li>
+    </ul>
+
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Update Entity</li>
+        <li><a href="/Fridges/Update">Fridge</a></li>
+        <li><a href="/FridgeModels/Update">Model</a></li>
+        <li><a href="/Products/Update">Product</a></li>
+        <li><a href="/Fridges/UpdateProductInFridge">Product In Fridge</a></li>
+    </ul>
+
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Delete Entity</li>
+        <li><a href="/Fridges/Delete">Fridge</a></li>
+        <li><a href="/FridgeModels/Delete">Model</a></li>
+        <li><a href="/Products/Delete">Product</a></li>
+        <li><a href="/Fridges/DeleteProductFromFridge">Product In Fridge</a></li>
+    </ul>
+
+    <ul class="main-menu">
+        <li style="background-color: #272773; color: white">Special Requests</li>
+        <li><a href="/FridgeModels/GetFridgesByModel">Get Fridges By Model</a></li>
+        <li><a href="/Fridges/ChangeNullQuantity">Change Null Quantity</a></li>
+        <li><a href="/Fridges/SearchFridgesBySubstring">Search Fridges By Substring</a></li>
+        <li><a href="/Fridges/GetYearOfTheMostSpaciousFridge">Get Year Of The Most Spacious Fridge</a></li>
+        <li><a href="/Fridges/GetFridgeWhichContainsTheMostKindsOfProducts">Get Fridge Which Contains The Most Kinds Of Products</a></li>
+        <li><a href="/Fridges/GetFridgesAndCountOfProducts">Get Fridges And Count Of Products Inside</a></li>
+    </ul>
+
+    <ul class="main-menu-for-admin">
+        <li style="background-color: #AE11B6; color: white">Just For Admin</li>
+        <li><a href="/Users/GetAll">Get All Users</a></li>
+        <li><a href="/Users/GetByUsername">Get User By UserName</a></li>
+    </ul>
+</div>

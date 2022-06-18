@@ -1,0 +1,49 @@
+﻿@model List<FridgeProductDto>
+
+@{
+    ViewData["Title"] = "Products in fridge";
+}
+
+<div>
+    <h3>Getting Products In Fridge</h3>
+
+    <form class="getting-form" asp-action="GetProductsInFridge" method="post">
+        <label>Fridge Id:</label>
+        <input class="input-props" type="text" name="id"/>
+        <br />
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit">Get</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>  
+
+    @if (@Model != null)
+    {
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fridge</th>
+                <th>Product</th>
+                <th>TotalQuantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fridgeProduct in @Model)
+            {
+                <tr>
+                    <td>@fridgeProduct.Id</td>
+                    <td>@fridgeProduct.Fridge</td>
+                    <td>@fridgeProduct.Product</td>
+                    <td>@fridgeProduct.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5 style="color: red">@ViewData["Message"]</h5>
+    }
+</div>

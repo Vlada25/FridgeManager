@@ -1,0 +1,45 @@
+﻿@model FridgeProductForCreationDto
+
+@{
+    ViewData["Title"] = "Product in fridge";
+}
+
+<div>
+    <h3>Putting Product In Fridge</h3>
+
+    <form class="creation-form" method="post" asp-action="PutProductInFridge">
+        <div class="field-container">
+            <label asp-for="FridgeId">Fridge Id</label>
+            <div>
+                <input class="input-props" asp-for="FridgeId"/>
+                <span class="error-mes-span" asp-validation-for="FridgeId"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="ProductId">Product Id</label>
+            <div>
+                <input class="input-props" asp-for="ProductId"/>
+                <span class="error-mes-span" asp-validation-for="ProductId"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Quantity"></label>
+            <div>
+                <input class="input-props" asp-for="Quantity"/>
+                <span class="error-mes-span" asp-validation-for="Quantity"></span>
+            </div>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit" onclick="alert('Creation request sent')">Create</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5>@ViewData["Message"]</h5>
+    }
+</div>

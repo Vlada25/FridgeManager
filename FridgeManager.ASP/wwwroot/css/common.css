@@ -1,0 +1,49 @@
+﻿.error-mes-span {
+    margin-left: 5px;
+    font-size: 90%;
+    color: red;
+}
+
+.h3-above-table {
+    margin-left: 1%;
+}
+
+#main {
+    padding: 0 3% 0 3%;
+}
+
+.main-menu{
+    width: 30%;
+    margin-top: 30px;
+}
+
+.main-menu li {
+    padding: 10px 20px 10px 20px;
+    margin-top: 5px;
+    background-color: #C9DFFF;
+    border-radius: 5px;
+    font-size: 120%;
+}
+
+.main-menu-for-admin {
+    width: 30%;
+    margin-top: 30px;
+}
+
+.main-menu-for-admin li {
+    padding: 10px 20px 10px 20px;
+    margin-top: 5px;
+    background-color: #E9A8EC;
+    border-radius: 5px;
+    font-size: 120%;
+    color: #6F0075;
+}
+
+.main-menu a {
+    transition: all 0.3s;
+}
+
+.main-menu a:hover{
+    color: white;
+    transition: all 0.3s;
+}
