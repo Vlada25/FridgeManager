@@ -1,0 +1,50 @@
+﻿@model ProductForUpdateDto
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div>
+    <h3>Product Update</h3>
+
+    <form class="creation-form" method="post" asp-action="Update">
+        <div class="field-container">
+            <label asp-for="Id"></label>
+            <div>
+                <input class="input-props" asp-for="Id"/>
+                <span class="error-mes-span" asp-validation-for="Id"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label asp-for="Name"></label>
+            <div>
+                <input class="input-props" asp-for="Name"/>
+                <span class="error-mes-span" asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label class="input-props" asp-for="DefaultQuantity"></label>
+            <div>
+                <input asp-for="DefaultQuantity"/>
+                <span class="error-mes-span" asp-validation-for="DefaultQuantity"></span>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <label class="input-props" asp-for="ImageSource">Image Source</label>
+            <input asp-for="ImageSource"/>
+        </div>
+
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit" onclick="alert('Update request sent')">Update</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5>@ViewData["Message"]</h5>
+    }
+</div>

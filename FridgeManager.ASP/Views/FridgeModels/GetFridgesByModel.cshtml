@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FridgeDto>
+
+@{
+    ViewData["Title"] = "Models";
+}
+
+<div>
+    <h3>Getting Fridges By Model</h3>
+
+    <form class="getting-form" asp-action="GetFridgesByModel" method="post">
+        <label>Model Id:</label>
+        <input class="input-props" type="text" name="modelId"/>
+        <br />
+        <div class="action-btn-container">
+            <button class="action-btn" type="submit">Get</button>
+            <a class="back-btn" href="/Home/Index">Back</a>
+        </div>
+    </form>  
+
+    @if (ViewData["Message"] != null)
+    {
+        <h5 style="color: red">@ViewData["Message"]</h5>
+    }
+
+    @if (@Model != null)
+    {
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Owner Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var fridge in @Model)
+                {
+                    <tr>
+                        <td>@fridge.Id</td>
+                        <td>@fridge.FullModelName</td>
+                        <td>@fridge.OwnerName</td>
+                    </tr>
+                }
+            </tr>
+        </tbody>
+    </table>
+    }
+</div>
