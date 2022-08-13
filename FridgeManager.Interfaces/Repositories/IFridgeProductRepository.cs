@@ -1,10 +1,5 @@
-﻿using FridgeManager.DTO.Fridge;
-using FridgeManager.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FridgeManager.Domain.Models;
+using FridgeManager.DTO.Fridge;
 
 namespace FridgeManager.Interfaces.Repositories
 {

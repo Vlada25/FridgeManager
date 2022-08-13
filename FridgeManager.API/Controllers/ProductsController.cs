@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using FridgeManager.DTO.Product;
 using FridgeManager.Domain.Models;
+using FridgeManager.DTO.Product;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.API.Controllers

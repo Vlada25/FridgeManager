@@ -1,11 +1,10 @@
 ﻿using Flurl.Http;
 using Flurl.Http.Configuration;
-using FridgeManager.DTO.Product;
+using FridgeManager.ASP.Services;
 using FridgeManager.Domain.Models;
+using FridgeManager.DTO.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using FridgeManager.ASP.Services;
 
 namespace FridgeManager.ASP.Controllers
 {

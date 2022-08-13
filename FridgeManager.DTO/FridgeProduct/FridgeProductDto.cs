@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FridgeManager.DTO.FridgeProduct
+﻿namespace FridgeManager.DTO.FridgeProduct
 {
     public class FridgeProductDto
     {

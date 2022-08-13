@@ -2,22 +2,13 @@
 using FluentAssertions;
 using FridgeManager.API.Controllers;
 using FridgeManager.Domain;
-using FridgeManager.Domain.DTO.Fridge;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace FridgeManager.Tests.IntegrationTests

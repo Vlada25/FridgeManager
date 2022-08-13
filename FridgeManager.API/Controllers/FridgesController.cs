@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
+using FridgeManager.Domain.Models;
 using FridgeManager.DTO.Fridge;
 using FridgeManager.DTO.FridgeProduct;
-using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.API.Controllers
@@ -244,7 +243,7 @@ namespace FridgeManager.API.Controllers
         public IActionResult SearchFridgesBySubstring(string substring)
         {
             var fridges = _repository.FridgeRepository.SearchFridgesBySubstring(substring, trackChanges: false).ToList();
-                
+
             var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
 
             return Ok(fridgesDto);

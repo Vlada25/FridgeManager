@@ -1,17 +1,11 @@
-﻿using FridgeManager.Domain;
-using FridgeManager.Domain.Models;
+﻿using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FridgeManager.Database.Repositories
 {
     public class FridgeModelRepository : BaseRepository<FridgeModel>, IFridgeModelRepository
     {
-        public FridgeModelRepository(FridgeManagerDbContext dbContext) 
+        public FridgeModelRepository(FridgeManagerDbContext dbContext)
             : base(dbContext) { }
 
         public void Create(FridgeModel model) => CreateEntity(model);

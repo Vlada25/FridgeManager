@@ -2,7 +2,6 @@
 using FridgeManager.DTO.User;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.API.Controllers

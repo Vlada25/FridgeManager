@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using FridgeManager.DTO.User;
 using FridgeManager.Domain.Models;
+using FridgeManager.DTO.User;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

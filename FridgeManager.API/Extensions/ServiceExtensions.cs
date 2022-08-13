@@ -1,7 +1,6 @@
 ﻿
 using AspNetCoreRateLimit;
 using FridgeManager.Database;
-using FridgeManager.Domain;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using FridgeManager.LoggerService;
@@ -66,12 +65,13 @@ namespace FridgeManager.API.Extensions
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
-            
+
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("JwtSettings");
             var secretKey = Environment.GetEnvironmentVariable("SECRET");
-            services.AddAuthentication(opt => {
+            services.AddAuthentication(opt =>
+            {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })

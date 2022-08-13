@@ -5,8 +5,6 @@ using FridgeManager.DTO.Fridge;
 using FridgeManager.DTO.FridgeProduct;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Web.Administration;
-using Newtonsoft.Json;
 
 namespace FridgeManager.ASP.Controllers
 {
@@ -17,7 +15,7 @@ namespace FridgeManager.ASP.Controllers
         private readonly IFlurlClient _flurlClient;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public FridgesController(Constants constants, 
+        public FridgesController(Constants constants,
             IFlurlClientFactory flurlClientFactory,
             IHttpContextAccessor httpContextAccessor)
         {

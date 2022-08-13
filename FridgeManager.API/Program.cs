@@ -1,16 +1,10 @@
+using AspNetCoreRateLimit;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using FridgeManager.API.Extensions;
 using FridgeManager.Domain;
-using Microsoft.AspNetCore.DataProtection;
+using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
-using Microsoft.IdentityModel.Tokens;
-using FridgeManager.Domain.Models;
-using FridgeManager.API.Extensions;
-using FridgeManager.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using AspNetCoreRateLimit;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.WebHost.UseUrls("http://localhost:5001");

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using FridgeManager.Domain.Models;
 using FridgeManager.DTO.Fridge;
 using FridgeManager.DTO.FridgeModel;
 using FridgeManager.DTO.FridgeProduct;
 using FridgeManager.DTO.Product;
-using FridgeManager.Domain.Models;
 using FridgeManager.DTO.User;
 
 namespace FridgeManager.Domain

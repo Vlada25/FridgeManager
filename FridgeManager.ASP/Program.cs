@@ -1,10 +1,5 @@
 using Flurl.Http.Configuration;
 using FridgeManager.ASP.Extentions;
-using FridgeManager.ASP.Services;
-using FridgeManager.DTO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.WebHost.UseUrls("http://localhost:5012");

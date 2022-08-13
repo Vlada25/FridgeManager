@@ -1,4 +1,7 @@
-﻿using FridgeManager.API.Controllers;
+﻿using AutoMapper;
+using FluentAssertions;
+using FridgeManager.API.Controllers;
+using FridgeManager.Domain;
 using FridgeManager.Domain.Models;
 using FridgeManager.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -6,13 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
-using FluentAssertions;
-using FridgeManager.Domain.DTO.FridgeModel;
-using AutoMapper;
-using System.Net;
-using FridgeManager.Domain;
 
 namespace FridgeManager.Tests.IntegrationTests
 {
